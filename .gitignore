@@ -1,16 +1,39 @@
-# Cache objects
-packer_cache/
+# Created by .ignore support plugin (hsz.mobi)
+### Ansible template
+*.retry
+*.swp
 
-# Crash log
+# Compiled source #
+# ###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+# ############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.dump
+
+# Logs and databases #
+# ######################
+*.log
+*.sql
+*.sqlite
+
+# Backup files
+*.bak
+
+*.DS_Store
+
+# Crash log files
 crash.log
-
-# https://www.packer.io/guides/hcl/variables
-# Exclude all .pkrvars.hcl files, which are likely to contain sensitive data, 
-# such as password, private keys, and other secrets. These should not be part of 
-# version control as they are data points which are potentially sensitive and 
-# subject to change depending on the environment.
-#
-*.pkrvars.hcl
-
-# For built boxes
-*.box
