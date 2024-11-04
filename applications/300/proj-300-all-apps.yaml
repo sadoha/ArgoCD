@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   # The name of Application
-  name: proj-100-all-apps
+  name: proj-300-all-apps
   # You'll usually want to add your resources to the argocd namespace.
   namespace: argocd
   # Add this finalizer ONLY if you want these to cascade delete.
@@ -10,10 +10,10 @@ metadata:
   - resources-finalizer.argocd.argoproj.io
   # Add labels to your application object.
   labels:
-    name: proj-100-all-apps
+    name: proj-300-all-apps
 spec:
   # The project the application belongs to.
-  project: proj-100
+  project: proj-300
   # Source of the application manifests
   source:
     # Can point to either a Helm chart repo or a git repo.
@@ -21,7 +21,7 @@ spec:
     # For Helm, this refers to the chart version.
     targetRevision: HEAD
     # This has no meaning for Helm charts pulled directly from a Helm repo ins tead of git.
-    path: applications/100/apps
+    path: applications/300/apps
   # Destination cluster and namespace to deploy the application
   destination:
     # cluster API URL
@@ -29,7 +29,7 @@ spec:
     # or cluster name
     # name: in-cluster
     # The namespace will only be set for namespace-scoped resources that have not set a value for .metadata.namespace
-    namespace: proj-100-app
+    namespace: proj-300-app
   # Sync policy  
   syncPolicy:
     # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
@@ -46,10 +46,10 @@ spec:
     managedNamespaceMetadata: 
       # The labels to set on the application namespace
       labels:
-        project: proj-100-all-apps
+        project: proj-300-all-apps
       # The labels to set on the application namespace
       annotations:
-        annotations: proj-100-all-apps
+        annotations: proj-300-all-apps
     # The retry feature is available since v1.7
     retry:
       # number of failed sync attempt retries; unlimited number of attempts if less than 0
