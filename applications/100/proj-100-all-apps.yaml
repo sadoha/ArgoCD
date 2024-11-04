@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: all-apps-in-order
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    path: applications/100/apps
+    repoURL: 'https://github.com/sadoha/ArgoCD.git'
+    targetRevision: main
+  destination:
+    namespace: proj-100-app
+    server: 'https://kubernetes.default.svc'
+  project: proj-100
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        maxDuration: 3m0s
+        factor: 2
+    syncOptions:
+      - CreateNamespace=true

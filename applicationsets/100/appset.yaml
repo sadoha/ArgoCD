@@ -8,17 +8,18 @@ spec:
   generators:
   - list:
       elements:
-      - appname: app1
-      - appname: app2
+      - envname: 100
+      #- envname: 200
+      #- envname: 300
   template:
     metadata:
-      name: '{{appname}}'
+      name: demo-helm-common-chart-{{envname}}
     spec:
-      project: proj-100
+      project: default
       source:
         repoURL: https://github.com/sadoha/ArgoCD.git
         targetRevision: HEAD
-        path: helm/app
+        path: applications/{{envname}}
       destination:
         server: https://kubernetes.default.svc
         namespace: proj-100-app
