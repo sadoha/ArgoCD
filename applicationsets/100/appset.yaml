@@ -1,0 +1,24 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: demo-helm-common-chart
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements:
+      - appname: app1
+      - appname: app2
+  template:
+    metadata:
+      name: '{{appname}}'
+    spec:
+      project: proj-100
+      source:
+        repoURL: https://github.com/sadoha/ArgoCD.git
+        targetRevision: HEAD
+        path: helm/app
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: proj-100-app

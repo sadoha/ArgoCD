@@ -2,6 +2,9 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  # The name of Application 
   name: proj-100-app1
   # You'll usually want to add your resources to the argocd namespace.
   namespace: argocd
