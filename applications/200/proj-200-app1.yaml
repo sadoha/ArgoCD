@@ -36,6 +36,17 @@ spec:
           minReplicas: 2
           maxReplicas: 10
           targetCPUUtilizationPercentage: 80
+
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - app1
+              topologyKey: kubernetes.io/hostname
   # Destination cluster and namespace to deploy the application
   destination: 
     # cluster API URL
