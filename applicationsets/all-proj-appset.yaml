@@ -2,24 +2,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: demo-helm-common-chart
+  name: all-proj-appset
   namespace: argocd
 spec:
   generators:
   - list:
       elements:
-      - envname: 100
-      #- envname: 200
-      #- envname: 300
+      - envname: '100'
+      - envname: '200'
+      - envname: '300'
   template:
     metadata:
-      name: demo-helm-common-chart-{{envname}}
+      name: 'proj-{{envname}}-appset'
     spec:
       project: default
       source:
         repoURL: https://github.com/sadoha/ArgoCD.git
         targetRevision: HEAD
-        path: applications/{{envname}}
+        path: 'applications/{{envname}}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: proj-100-app
+        namespace: 'proj-{{envname}}-app'
