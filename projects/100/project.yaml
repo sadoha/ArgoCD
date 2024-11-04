@@ -26,21 +26,3 @@ spec:
   # Enables namespace orphaned resource monitoring.
   orphanedResources:
     warn: true
-#  # Sync windows restrict when Applications may be synced. https://argo-cd.readthedocs.io/en/stable/user-guide/sync_windows/
-#  syncWindows:
-#  - kind: allow
-#    schedule: '* * * * *'
-#    duration: 1h
-#    applications:
-#      - 'proj-1*'
-#    manualSync: false
-#  - kind: deny
-#    schedule: '0 * * * *'
-#    duration: 1h
-#    namespaces:
-#      - default
-#  - kind: allow
-#    schedule: '0 * * * *'
-#    duration: 1h
-#    clusters:
-#      - in-cluster
