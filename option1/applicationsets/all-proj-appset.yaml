@@ -1,0 +1,41 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: all-proj-appset
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements:
+      - envname: '100'
+      - envname: '200'
+      - envname: '300'
+  # These fields are identical to the Application spec.
+  # The generator's template field takes precedence over the spec's template fields
+  template:
+    metadata:
+      name: 'proj-{{envname}}-appset'
+    spec:
+      project: default
+      # defines from which Git repository to extract the desired Application manifests
+      source:
+        # developers may customize app details using JSON files from above repo URL
+        repoURL: https://github.com/sadoha/ArgoCD.git
+        targetRevision: HEAD
+        # Path within the repository where Kubernetes manifests are located
+        path: 'option1/applications/{{envname}}'
+      destination:
+        # Only one of name or server may be specified: if both are specified, an error is returned.
+        #  API Server URL for the cluster
+        server: https://kubernetes.default.svc
+        # Target namespace in which to deploy the manifests from source 
+        namespace: 'proj-{{envname}}-app'
+      # Sync policy  
+      syncPolicy:
+        # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+        automated:
+          # Specifies if resources should be pruned during auto-syncing ( false by default ).
+          prune: true
+          # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+          selfHeal: true
