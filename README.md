@@ -132,6 +132,7 @@ kubectl delete -f ./projects/
 
 ## 7. Deploy the environment using option1
 
+```bash
 .
 ├── applications
 │   ├── 100
@@ -150,6 +151,7 @@ kubectl delete -f ./projects/
 │       └── proj-300-all-apps.yaml
 └── applicationsets
     └── all-proj-appset.yaml
+```
 
 Deploy the environment:
 ```bash
@@ -163,6 +165,7 @@ kubectl delete -f ./option1/applicationsets/all-proj-appset.yaml
 
 ## 8. Deploy the environment using option2
 
+```bash
 .
 ├── applications
 │   └── values
@@ -182,6 +185,7 @@ kubectl delete -f ./option1/applicationsets/all-proj-appset.yaml
 │               └── values.yaml
 └── applicationsets
     └── proj-appset.yaml
+```
 
 Deploy the environment:
 ```bash
