@@ -1,7 +1,7 @@
 # Getting Started
 
 !!! tip
-    This guide assumes you have a grounding in the tools that Argo CD is based on. Please read [understanding the basics](understand_the_basics.md) to learn about these tools.
+    This guide assumes you have a grounding in the tools that Argo CD is based on.
 
 ## Requirements
 
@@ -21,27 +21,6 @@ This will create a new namespace, `argocd`, where Argo CD services and applicati
 !!! warning
     The installation manifests include `ClusterRoleBinding` resources that reference `argocd` namespace. If you are installing Argo CD into a different
     namespace then make sure to update the namespace reference.
-
-!!! tip
-    If you are not interested in UI, SSO, and multi-cluster features, then you can install only the [core](operator-manual/core.md#installing) Argo CD components.
-
-This default installation will have a self-signed certificate and cannot be accessed without a bit of extra work.
-Do one of:
-
-* Follow the [instructions to configure a certificate](operator-manual/tls.md) (and ensure that the client OS trusts it).
-* Configure the client OS to trust the self signed certificate.
-* Use the --insecure flag on all Argo CD CLI operations in this guide.
-
-!!! note 
-    Default namespace for `kubectl` config must be set to `argocd`.
-    This is only needed for the following commands since the previous commands have -n argocd already:
-    `kubectl config set-context --current --namespace=argocd`
-    
-
-Use `argocd login --core` to [configure](./user-guide/commands/argocd_login.md) CLI access and skip steps 3-5.
-
-!!! note
-    This default installation for Redis is using password authentication. The Redis password is stored in Kubernetes secret `argocd-redis` with key `auth` in the namespace where Argo CD is installed.
 
 ## 2. Download Argo CD CLI
 
@@ -64,9 +43,6 @@ Change the argocd-server service type to `LoadBalancer`:
 ```bash
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 ```
-
-### Ingress
-Follow the [ingress documentation](operator-manual/ingress.md) on how to configure Argo CD with ingress.
 
 ### Port Forwarding
 Kubectl port-forwarding can also be used to connect to the API server without exposing the service.
@@ -101,9 +77,6 @@ Using the username `admin` and the password from above, login to Argo CD's IP or
 ```bash
 argocd login <ARGOCD_SERVER>
 ```
-
-!!! note
-    The CLI environment must be able to communicate with the Argo CD API server. If it isn't directly accessible as described above in step 3, you can tell the CLI to access it using port forwarding through one of these mechanisms: 1) add `--port-forward-namespace argocd` flag to every CLI command; or 2) set `ARGOCD_OPTS` environment variable: `export ARGOCD_OPTS='--port-forward-namespace argocd'`.
 
 Change the password using the command:
 
