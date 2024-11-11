@@ -7,7 +7,6 @@
 
 * Installed [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) command-line tool.
 * Have a [kubeconfig](https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) file (default location is `~/.kube/config`).
-* CoreDNS. Can be enabled for microk8s by `microk8s enable dns && microk8s stop && microk8s start`
 
 ## 1. Install Argo CD
 
@@ -113,7 +112,7 @@ service account token to perform its management tasks (i.e. deploy/monitoring).
 !!! note 
     Before deployment applications, the ArgoCD project should be installed.
 
-In this case, we use a project name the same as the environment name. Please take a look at the example below to understand which naming for environments we use:
+In this case, The project name is the same as the environment name. Please take a look at the example below to understand which naming for environments we use:
 ```bash
 100 = dev
 200 = test
@@ -138,7 +137,9 @@ Remove ArgoCD projects
 kubectl delete -f ./projects/
 ```
 
-## 7. Deploy the environment using option
+## 7. Deploy the environment using option1
+
+The first configuration option is more for understanding how to configure base applications, override Helm Chart values, set schedulers etc. You can deploy this option to familiarize yourself with the ArgoCD configuration. 
 
 The structure of catalogs:
 ```bash
@@ -162,15 +163,26 @@ The structure of catalogs:
     └── all-proj-appset.yaml
 ```
 
-Deploy the environment:
+Deploy the all environment:
 ```bash
 kubectl apply -f ./option1/applicationsets/all-proj-appset.yaml
 ```
 
-Remove the environment:
+Remove the all environment:
 ```bash
 kubectl delete -f ./option1/applicationsets/all-proj-appset.yaml
 ```
+
+Deploy applications per environment (100,200,300):
+```bash
+kubectl apply -f ./option1/applications/100/proj-100-all-apps.yaml
+```
+
+Remove applications per environment (100,200,300):
+```bash
+kubectl delete -f ./option1/applications/100/proj-100-all-apps.yaml
+```
+
 
 ## 8. Deploy the environment using option2
 
