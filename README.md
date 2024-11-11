@@ -120,6 +120,14 @@ In this case, we use a project name the same as the environment name. Please tak
 300 = prod
 ```
 
+The structure of catalogs:
+```bash
+.
+├── project-100.yaml
+├── project-200.yaml
+└── project-300.yaml
+```
+
 Deploy ArgoCD projects
 ```bash
 kubectl apply -f ./projects/
@@ -130,8 +138,9 @@ Remove ArgoCD projects
 kubectl delete -f ./projects/
 ```
 
-## 7. Deploy the environment using option1
+## 7. Deploy the environment using option
 
+The structure of catalogs:
 ```bash
 .
 ├── applications
@@ -165,6 +174,7 @@ kubectl delete -f ./option1/applicationsets/all-proj-appset.yaml
 
 ## 8. Deploy the environment using option2
 
+The structure of catalogs:
 ```bash
 .
 ├── applications
