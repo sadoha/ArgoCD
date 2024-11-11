@@ -189,6 +189,8 @@ kubectl delete -f ./option1/applications/300/proj-300-all-apps.yaml
 
 ## 8. Deploy the environment using option2
 
+The main idea of the option2 is to separate configuration between two repositories, the first one is a repository with ArgoCD configs for deployment applications, and the second one is for configuration of application and Helm Chart values files. In this case, a development team can manage the version of an application, change Helm Chart values, and update the configuration of an application, they will do it in a repository with code. 
+
 The structure of catalogs:
 ```bash
 .
