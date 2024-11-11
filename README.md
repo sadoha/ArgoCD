@@ -108,3 +108,50 @@ service account token to perform its management tasks (i.e. deploy/monitoring).
 !!! note
     The rules of the `argocd-manager-role` role can be modified such that it only has `create`, `update`, `patch`, `delete` privileges to a limited set of namespaces, groups, kinds.
     However `get`, `list`, `watch` privileges are required at the cluster-scope for Argo CD to function.
+
+## 6. Preparation to deploy environments
+
+!!! note 
+    Before deployment applications, the ArgoCD project should be installed.
+
+In this case, we use a project name the same as the environment name. Please take a look at the example below to understand which naming for environments we use:
+```bash
+100 = dev
+200 = test
+300 = prod
+```
+
+Deploy ArgoCD projects
+```bash
+kubectl apply -f ./projects/
+```
+
+Remove ArgoCD projects
+```bash
+kubectl delete -f ./projects/
+```
+
+## 7. Deploy the environment using option1
+
+Deploy the environment:
+```bash
+kubectl apply -f ./option1/applicationsets/all-proj-appset.yaml
+```
+
+Remove the environment:
+```bash
+kubectl delete -f ./option1/applicationsets/all-proj-appset.yaml
+```
+
+## 8. Deploy the environment using option2
+
+
+Deploy the environment:
+```bash
+kubectl apply -f ./option2/applicationsets/all-proj-appset.yaml
+```
+
+Remove the environment:
+```bash
+kubectl delete -f ./option2/applicationsets/all-proj-appset.yaml
+```
