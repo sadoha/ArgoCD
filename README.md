@@ -194,7 +194,7 @@ The main idea of the option2 is to separate configuration between two repositori
 The structure of catalogs:
 ```bash
 .
-├── applications
+├── applications # (This catalog can be located on a development side, in a repository with a code of application.)
 │   └── values
 │       ├── app1
 │       │   ├── 100
@@ -210,7 +210,7 @@ The structure of catalogs:
 │           │   └── values.yaml
 │           └── 300
 │               └── values.yaml
-└── applicationsets
+└── applicationsets # (This catalog should be in a repository where the ArgoCD configuration is located. )
     └── proj-appset.yaml
 ```
 
