@@ -24,8 +24,7 @@ This will create a new namespace, `argocd`, where Argo CD services and applicati
 
 ## 2. Download Argo CD CLI
 
-Download the latest Argo CD version from [https://github.com/argoproj/argo-cd/releases/latest](https://github.com/argoproj/argo-cd/releases/latest). More detailed installation instructions can be found via the [CLI installation documentation](cli_installation.md).
-
+Download the latest Argo CD version from [https://github.com/argoproj/argo-cd/releases/latest](https://github.com/argoproj/argo-cd/releases/latest).
 Also available in Mac, Linux and WSL Homebrew:
 
 ```bash
@@ -133,6 +132,25 @@ kubectl delete -f ./projects/
 
 ## 7. Deploy the environment using option1
 
+.
+├── applications
+│   ├── 100
+│   │   ├── apps
+│   │   │   ├── proj-100-app1.yaml
+│   │   │   ├── proj-100-app2.yaml
+│   │   │   └── proj-100-app3.yaml
+│   │   └── proj-100-all-apps.yaml
+│   ├── 200
+│   │   ├── apps
+│   │   │   └── proj-200-app1.yaml
+│   │   └── proj-200-all-apps.yaml
+│   └── 300
+│       ├── apps
+│       │   └── proj-300-app1.yaml
+│       └── proj-300-all-apps.yaml
+└── applicationsets
+    └── all-proj-appset.yaml
+
 Deploy the environment:
 ```bash
 kubectl apply -f ./option1/applicationsets/all-proj-appset.yaml
@@ -145,13 +163,32 @@ kubectl delete -f ./option1/applicationsets/all-proj-appset.yaml
 
 ## 8. Deploy the environment using option2
 
+.
+├── applications
+│   └── values
+│       ├── app1
+│       │   ├── 100
+│       │   │   └── values.yaml
+│       │   ├── 200
+│       │   │   └── values.yaml
+│       │   └── 300
+│       │       └── values.yaml
+│       └── app2
+│           ├── 100
+│           │   └── values.yaml
+│           ├── 200
+│           │   └── values.yaml
+│           └── 300
+│               └── values.yaml
+└── applicationsets
+    └── proj-appset.yaml
 
 Deploy the environment:
 ```bash
-kubectl apply -f ./option2/applicationsets/all-proj-appset.yaml
+kubectl apply -f ./option2/applicationsets/proj-appset.yaml
 ```
 
 Remove the environment:
 ```bash
-kubectl delete -f ./option2/applicationsets/all-proj-appset.yaml
+kubectl delete -f ./option2/applicationsets/proj-appset.yaml
 ```
