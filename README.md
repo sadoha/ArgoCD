@@ -176,15 +176,15 @@ kubectl delete -f ./option1/applicationsets/all-proj-appset.yaml
 Deploy applications per environment (100,200,300):
 ```bash
 kubectl apply -f ./option1/applications/100/proj-100-all-apps.yaml
-kubectl apply -f ./option1/applications/100/proj-200-all-apps.yaml
-kubectl apply -f ./option1/applications/100/proj-300-all-apps.yaml
+kubectl apply -f ./option1/applications/200/proj-200-all-apps.yaml
+kubectl apply -f ./option1/applications/300/proj-300-all-apps.yaml
 ```
 
 Remove applications per environment (100,200,300):
 ```bash
 kubectl delete -f ./option1/applications/100/proj-100-all-apps.yaml
-kubectl delete -f ./option1/applications/100/proj-200-all-apps.yaml
-kubectl delete -f ./option1/applications/100/proj-300-all-apps.yaml
+kubectl delete -f ./option1/applications/200/proj-200-all-apps.yaml
+kubectl delete -f ./option1/applications/300/proj-300-all-apps.yaml
 ```
 
 ## 8. Deploy the environment using option2
