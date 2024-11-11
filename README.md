@@ -163,12 +163,12 @@ The structure of catalogs:
     └── all-proj-appset.yaml
 ```
 
-Deploy the all environment:
+Deploy all environmens:
 ```bash
 kubectl apply -f ./option1/applicationsets/all-proj-appset.yaml
 ```
 
-Remove the all environment:
+Remove all environments:
 ```bash
 kubectl delete -f ./option1/applicationsets/all-proj-appset.yaml
 ```
@@ -182,7 +182,6 @@ Remove applications per environment (100,200,300):
 ```bash
 kubectl delete -f ./option1/applications/100/proj-100-all-apps.yaml
 ```
-
 
 ## 8. Deploy the environment using option2
 
