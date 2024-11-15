@@ -19,7 +19,7 @@ spec:
       namespace: argocd
       name: "{{path[1]}}-{{path[3]}}-{{path.basename}}"
     spec:
-      project: project-100
+      project: project1
       sources:
       - repoURL: https://github.com/sadoha/ArgoCD.git
         targetRevision: HEAD
@@ -31,7 +31,7 @@ spec:
         targetRevision: HEAD
         ref: values
       destination:
-        namespace: "{{path[3]}}"
+        namespace: "{{path[1]}}-{{path[3]}}"
         server: https://kubernetes.default.svc
       syncPolicy:
         automated:
@@ -41,6 +41,6 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: "{{path[3]}}-{{path.basename}}"
+            project: "{{path[1]}}-{{path[3]}}-{{path.basename}}"
           annotations:
-            annotations: "{{path[3]}}-{{path.basename}}"
+            annotations: "{{path[1]}}-{{path[3]}}-{{path.basename}}"

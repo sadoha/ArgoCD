@@ -2,12 +2,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: project-100
+  name: project1
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
-  description: Example of project project-100
+  description: Example of project project1
   sourceRepos:
   - '*'
   destinations:
