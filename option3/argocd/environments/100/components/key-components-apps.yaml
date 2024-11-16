@@ -1,0 +1,26 @@
+key:
+  components:
+  - name:         product1-app1
+    chart:        app
+    product:      product1
+    appName:      app1
+    appVersion:   '1.27.1-alpine-slim'
+    environment:  '100'
+  - name:         product1-app2
+    chart:        app
+    product:      product1
+    appName:      app2
+    appVersion:   '1.27.2-alpine-slim'
+    environment:  '100'
+  - name:         product2-app1
+    chart:        app
+    product:      product2
+    appName:      app1
+    appVersion:   '1.26.1-alpine-slim'
+    environment:  '100'
+  - name:         product2-app2
+    chart:        app
+    product:      product2
+    appName:      app2
+    appVersion:   '1.26.2-alpine-slim'
+    environment:  '100'
