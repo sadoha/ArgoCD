@@ -8,6 +8,8 @@ metadata:
   labels:
     name: project1-100-applicationset
 spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
   generators:
     - matrix:
         generators:
@@ -27,27 +29,27 @@ spec:
       sources:
       - repoURL: https://github.com/sadoha/ArgoCD.git
         targetRevision: HEAD
-        path: helm/'{{.chart}}'
-     #   helm:
-     #     values: |
-     #       image:
-     #         tag: "{{.appVersion}}"
-     #     valueFiles:
-     #     - $values/option3/{{.product}}/environments/{{.environment}}/apps/{{.appName}}/values.yaml
-     # - repoURL: 'https://github.com/sadoha/ArgoCD.git'
-     #   targetRevision: HEAD
-     #   ref: values
+        path: 'helm/{{.chart}}'
+        helm:
+          values: |
+            image:
+              tag: '{{.appVersion}}'
+          valueFiles:
+          - $values/option3/{{.product}}/environments/{{.environment}}/apps/{{.appName}}/values.yaml
+      - repoURL: 'https://github.com/sadoha/ArgoCD.git'
+        targetRevision: HEAD
+        ref: values
       destination:
-        namespace: '{{.environment}}'
         server: https://kubernetes.default.svc
+        namespace: '{{.environment}}'
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
-#        managedNamespaceMetadata: 
-#          labels:
-#            project: "{{.product}}-{{.environment}}"
-#          annotations:
-#            annotations: "{{.product}}-{{.environment}}"
+        managedNamespaceMetadata: 
+          labels:
+            project: '{{.product}}-{{.environment}}'
+          annotations:
+            annotations: '{{.product}}-{{.environment}}'
