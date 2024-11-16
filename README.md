@@ -129,12 +129,12 @@ The structure of catalogs:
 
 Deploy ArgoCD projects
 ```bash
-kubectl apply -f ./projects/
+kubectl apply -f ./option1/projects
 ```
 
 Remove ArgoCD projects
 ```bash
-kubectl delete -f ./projects/
+kubectl delete -f ./option1/projects
 ```
 
 ## 7. Deploy the environment using option1
