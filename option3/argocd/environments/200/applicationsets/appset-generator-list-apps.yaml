@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: project1-200-applicationset
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: project1-200-applicationset
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+        - git:
+            repoURL: https://github.com/sadoha/ArgoCD.git
+            revision: HEAD
+            files:
+            - path: option3/argocd/environments/200/components/key-components-apps.yaml
+        - list:
+            elementsYaml: "{{ .key.components | toJson }}" 
+  template:
+    metadata:
+      namespace: argocd
+      name: '{{.name}}'
+    spec:
+      project: '{{.project}}'
+      sources:
+      - repoURL: https://github.com/sadoha/ArgoCD.git
+        targetRevision: HEAD
+        path: 'helm/{{.chart}}'
+        helm:
+          values: |
+            image:
+              tag: '{{.appVersion}}'
+          valueFiles:
+          - $values/option3/{{.product}}/environments/{{.environment}}/apps/{{.appName}}/values.yaml
+      - repoURL: 'https://github.com/sadoha/ArgoCD.git'
+        targetRevision: HEAD
+        ref: values
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{.environment}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+        managedNamespaceMetadata: 
+          labels:
+            project: '{{.product}}-{{.environment}}'
+          annotations:
+            annotations: '{{.product}}-{{.environment}}'
