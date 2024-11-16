@@ -1,0 +1,70 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: project1-applicationset
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: project1-applicationset
+spec:
+  generators:
+  - list:
+      elements:
+      - name:         product1-app1
+        chart:        app
+        product:      product1
+        appName:      app1
+        appVersion:   '1.27.1-alpine-slim'
+        environment:  '100'
+      - name:         product1-app2
+        chart:        app
+        product:      product1
+        appName:      app2
+        appVersion:   '1.27.2-alpine-slim'
+        environment:  '100'
+      - name:         product2-app1
+        chart:        app
+        product:      product2
+        appName:      app1
+        appVersion:   '1.26.1-alpine-slim'
+        environment:  '100'
+      - name:         product2-app2
+        chart:        app
+        product:      product2
+        appName:      app2
+        appVersion:   '1.26.2-alpine-slim'
+        environment:  '100'
+  template:
+    metadata:
+      namespace: argocd
+      name: "{{name}}"
+    spec:
+      project: project1
+      sources:
+      - repoURL: https://github.com/sadoha/ArgoCD.git
+        targetRevision: HEAD
+        path: helm/{{chart}}
+        helm:
+          values: |
+            image:
+              tag: "{{appVersion}}"
+          valueFiles:
+          - $values/option3/{{product}}/environments/{{environment}}/apps/{{appName}}/values.yaml
+      - repoURL: 'https://github.com/sadoha/ArgoCD.git'
+        targetRevision: HEAD
+        ref: values
+      destination:
+        namespace: "{{environment}}"
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+        managedNamespaceMetadata: 
+          labels:
+            project: "{{product}}-{{environment}}"
+          annotations:
+            annotations: "{{product}}-{{environment}}"
