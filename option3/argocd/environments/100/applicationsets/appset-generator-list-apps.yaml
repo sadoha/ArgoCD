@@ -25,7 +25,7 @@ spec:
       namespace: argocd
       name: '{{.name}}'
     spec:
-      project: project1
+      project: '{{.project}}'
       sources:
       - repoURL: https://github.com/sadoha/ArgoCD.git
         targetRevision: HEAD
