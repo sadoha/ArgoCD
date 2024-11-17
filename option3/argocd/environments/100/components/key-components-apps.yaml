@@ -8,27 +8,19 @@ key:
       product:      "product1"
       chart:        "app"
       appName:      "app1"
-      values: |
-        image:
-          tag: "1.27.1-alpine-slim"
+      appVersion:   "1.27.1-alpine-slim"
     - name:         "product1-100-app2"
       product:      "product1"
       chart:        "app"
       appName:      "app2"
-      values: |
-        image:
-          tag: "1.27.2-alpine-slim"
+      appVersion:   "1.27.2-alpine-slim"
     - name:         "product2-100-app1"
       product:      "product2"
       chart:        "app"
       appName:      "app1"
-      values: |
-        image:
-          tag: "1.26.1-alpine-slim"
+      appVersion:   "1.26.1-alpine-slim"
     - name:         "product2-100-app2"
       product:      "product2"
       chart:        "app"
       appName:      "app2"
-      values: |
-        image:
-          tag: "1.26.2-alpine-slim"
+      appVersion:   "1.26.2-alpine-slim"
