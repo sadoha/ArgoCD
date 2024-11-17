@@ -23,6 +23,9 @@ spec:
       sources:
       - repoURL: https://github.com/sadoha/ArgoCD.git
         targetRevision: HEAD
+        path: option3/argocd/projects
+      - repoURL: https://github.com/sadoha/ArgoCD.git
+        targetRevision: HEAD
         path: option3/argocd/environments/{{path[3]}}/applicationsets
       destination:
         namespace: argocd
