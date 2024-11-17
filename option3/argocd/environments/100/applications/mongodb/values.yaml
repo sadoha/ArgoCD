@@ -1,6 +1,2 @@
 # Copyright Broadcom, Inc. All Rights Reserved.
 # SPDX-License-Identifier: APACHE-2.0
-
-## @param replicaCount Number of etcd replicas to deploy
-##
-replicaCount: 3
