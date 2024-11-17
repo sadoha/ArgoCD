@@ -19,13 +19,15 @@ spec:
             files:
             - path: option3/argocd/environments/100/components/key-components-apps.yaml
         - list:
+            elements: []
             elementsYaml: "{{ .key.components | toJson }}" 
   template:
     metadata:
       namespace: argocd
       name: '{{.name}}'
     spec:
-      project: '{{.project}}'
+      #project: '{{.project}}'
+      project: '{{.key.common.project}}'
       sources:
       - repoURL: https://github.com/sadoha/ArgoCD.git
         targetRevision: HEAD

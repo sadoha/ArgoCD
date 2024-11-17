@@ -1,8 +1,9 @@
 key:
   common:
-    - project:      "project1"
-      product:      "product1"
-      environment:  "100"
+    project:      "project1"
+    product:      "product1"
+    environment:  "100"
+
   components:
     - name:         product1-100-app1
       chart:        app
