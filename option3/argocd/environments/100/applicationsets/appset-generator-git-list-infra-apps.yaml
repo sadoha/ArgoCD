@@ -25,20 +25,20 @@ spec:
       namespace: argocd
       name: '{{.name}}'
     spec:
-      project: '{{.project}}'
+      project: '{{.key.common.project}}'
       sources:
       - chart: '{{.chart}}'
         repoURL: '{{.repoUrl}}'
         targetRevision: '{{.chartVersion}}'
         helm:
           valueFiles:
-          - $values/option3/argocd/environments/{{.environment}}/applications/{{.chart}}/values.yaml
+          - $values/option3/argocd/environments/{{.key.common.environment}}/applications/{{.chart}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: HEAD
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: 'applications-{{.environment}}-infra'
+        namespace: 'applications-{{.key.common.environment}}-infra'
       syncPolicy:
         automated:
           prune: true
@@ -47,6 +47,6 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: 'applications-{{.environment}}-infra'
+            project: 'applications-{{.key.common.environment}}-infra'
           annotations:
-            annotations: 'applications-{{.environment}}-infra'
+            annotations: 'applications-{{.key.common.environment}}-infra'
