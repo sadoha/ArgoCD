@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: project1-all-application
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: project1-all-application
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/sadoha/ArgoCD.git
+        revision: HEAD
+        directories:
+          - path: option3/*/environments/*/apps/*
+  template:
+    metadata:
+      namespace: argocd
+      name: project1-{{path[3]}}-all-application
+    spec:
+      project: default
+      sources:
+      - repoURL: https://github.com/sadoha/ArgoCD.git
+        targetRevision: HEAD
+        path: option3/argocd/environments/{{path[3]}}/applicationsets
+      destination:
+        namespace: '{{path[3]}}'
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
