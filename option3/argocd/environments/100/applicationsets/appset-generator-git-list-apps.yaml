@@ -32,8 +32,6 @@ spec:
         targetRevision: HEAD
         path: 'helm/{{.chart}}'
         helm:
-          values: |
-            {{default "" .values}}
           parameters:
             - name: image.tag
               value: '{{.appVersion}}'
