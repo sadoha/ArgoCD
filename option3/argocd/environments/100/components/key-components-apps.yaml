@@ -1,7 +1,9 @@
 key:
   common:
     project:      "project1"
-    product:      "product1"
+    product:      
+      - "product1"
+      - "product2"
     environment:  "100"
 
   components:
