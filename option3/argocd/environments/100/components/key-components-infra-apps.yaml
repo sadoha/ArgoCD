@@ -1,6 +1,6 @@
 key:
   components:
-    - name:         infrastructure-100-redis
+    - name:         shared-100-redis
       chart:        "bitnami/redis"
       repoUrl:      "https://charts.bitnami.com/bitnami"
       appName:      redis
