@@ -19,6 +19,7 @@ spec:
             files:
             - path: option3/argocd/environments/100/components/key-components-infra-apps.yaml
         - list:
+            elements: []
             elementsYaml: "{{ .key.components | toJson }}" 
   template:
     metadata:
