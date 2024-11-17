@@ -41,7 +41,7 @@ spec:
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.product}}-{{.environment}}-app'
+        namespace: 'applications-{{.environment}}-app'
       syncPolicy:
         automated:
           prune: true
@@ -50,6 +50,6 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: '{{.product}}-{{.environment}}-app'
+            project: 'applications-{{.environment}}-app'
           annotations:
-            annotations: '{{.product}}-{{.environment}}-app'
+            annotations: 'applications-{{.environment}}-app'

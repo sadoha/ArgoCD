@@ -38,7 +38,7 @@ spec:
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: 'shared-{{.environment}}-infra'
+        namespace: 'applications-{{.environment}}-infra'
       syncPolicy:
         automated:
           prune: true
@@ -47,6 +47,6 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: 'shared-{{.environment}}-infra'
+            project: 'applications-{{.environment}}-infra'
           annotations:
-            annotations: 'shared-{{.environment}}-infra'
+            annotations: 'applications-{{.environment}}-infra'
