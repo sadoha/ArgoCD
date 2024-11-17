@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: project1-all-application
+  name: project1-all-apps
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: project1-all-application
+    name: project1-all-apps
 spec:
   generators:
     - git:
@@ -25,11 +25,9 @@ spec:
         targetRevision: HEAD
         path: option3/argocd/environments/{{path[3]}}/applicationsets
       destination:
-        namespace: '{{path[3]}}-{{path[3]}}-app'
+        namespace: argocd
         server: https://kubernetes.default.svc
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
