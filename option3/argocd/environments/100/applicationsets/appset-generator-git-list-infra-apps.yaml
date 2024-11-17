@@ -23,13 +23,24 @@ spec:
   template:
     metadata:
       namespace: argocd
-      name: '{{.name}}'
+      name: 'shared-100-infra'
+      #name: '{{.name}}'
     spec:
       project: '{{.project}}'
       sources:
-      - repoURL: '{{.repoUrl}}'
-        targetRevision: '{{.chartVersion}}'
-        path: '{{.chart}}'
+      - chart: mongodb
+        repoURL: registry-1.docker.io/bitnamicharts  # note: the oci:// syntax is not included.
+        targetRevision: 16.3.0
+      - chart: etcd
+        repoURL: registry-1.docker.io/bitnamicharts  # note: the oci:// syntax is not included.
+        targetRevision: 10.5.3
+
+      #- repoURL: 'https://charts.bitnami.com/bitnami'
+      #  targetRevision: '10.5.3'
+      #  chart: 'bitnami/etcd'
+      #- repoURL: '{{.repoUrl}}'
+      #  targetRevision: '{{.chartVersion}}'
+      #  path: '{{.chart}}'
       #  helm:
       #    values: |
       #      image:
