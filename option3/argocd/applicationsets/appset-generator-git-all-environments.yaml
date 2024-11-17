@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       namespace: argocd
-      name: project1-{{path[3]}}-all-application
+      name: project1-{{path[3]}}-all-apps
     spec:
       project: default
       sources:
