@@ -1,29 +1,30 @@
 key:
   common:
     project:      "project1"
-    product:      
-      - "product1"
-      - "product2"
     environment:  "100"
 
   components:
-    - name:         product1-100-app1
-      chart:        app
-      appName:      app1
+    - name:         "product1-100-app1"
+      product:      "product1"
+      chart:        "app"
+      appName:      "app1"
       appVersion:   "1.27.1-alpine-slim"
       environment:  "100"
-    - name:         product1-100-app2
-      chart:        app
-      appName:      app2
+    - name:         "product1-100-app2"
+      product:      "product1"
+      chart:        "app"
+      appName:      "app2"
       appVersion:   "1.27.2-alpine-slim"
       environment:  "100"
-    - name:         product2-100-app1
-      chart:        app
-      appName:      app1
+    - name:         "product2-100-app1"
+      product:      "product2"
+      chart:        "app"
+      appName:      "app1"
       appVersion:   "1.26.1-alpine-slim"
       environment:  "100"
-    - name:         product2-100-app2
-      chart:        app
-      appName:      app2
+    - name:         "product2-100-app2"
+      product:      "product2"
+      chart:        "app"
+      appName:      "app2"
       appVersion:   "1.26.2-alpine-slim"
       environment:  "100"
