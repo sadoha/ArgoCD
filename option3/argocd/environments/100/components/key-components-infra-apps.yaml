@@ -3,7 +3,6 @@ key:
     - name:         shared-100-redis
       chart:        "bitnami/redis"
       repoUrl:      "https://charts.bitnami.com/bitnami"
-      appName:      redis
-      appVersion:   "15.7.6"
+      chartVersion: "15.7.6"
       project:      "project1"
       environment:  "100"

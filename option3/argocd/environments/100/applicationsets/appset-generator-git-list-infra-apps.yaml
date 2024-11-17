@@ -28,8 +28,8 @@ spec:
       project: '{{.project}}'
       sources:
       - repoURL: '{{.repoUrl}}'
-        targetRevision: HEAD
-        path: 'helm/{{.chart}}'
+        targetRevision: '{{.chartVersion}}'
+        path: '{{.chart}}'
       #  helm:
       #    values: |
       #      image:
