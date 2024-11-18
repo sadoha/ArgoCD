@@ -12,3 +12,6 @@ autoscaling:
   maxReplicas: 2
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
+
+podAnnotations:
+  argocd.argoproj.io/sync-wave: "3"
