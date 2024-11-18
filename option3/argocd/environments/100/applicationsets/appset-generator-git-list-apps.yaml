@@ -54,4 +54,3 @@ spec:
             project: '{{.variables.common.environment}}-apps'
           annotations:
             annotations: '{{.variables.common.environment}}-apps'
-            argocd.argoproj.io/sync-wave: "0"
