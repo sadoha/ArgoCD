@@ -17,9 +17,7 @@ spec:
             repoURL: https://github.com/sadoha/ArgoCD.git
             revision: HEAD
             files:
-            - path: option3/argocd/environments/100/components/key-components-apps.yaml
-            - path: option3/product1/environments/100/components/environment-variables.yaml
-            - path: option3/product2/environments/100/components/environment-variables.yaml
+            - path: option3/argocd/environments/100/variables/key-components-apps.yaml
         - list:
             elements: []
             elementsYaml: "{{ .key.components | toJson }}" 
