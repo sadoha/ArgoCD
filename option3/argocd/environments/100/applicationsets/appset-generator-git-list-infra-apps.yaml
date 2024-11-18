@@ -51,3 +51,4 @@ spec:
             project: '{{.variables.common.environment}}-infra'
           annotations:
             annotations: '{{.variables.common.environment}}-infra'
+            argocd.argoproj.io/sync-wave: "-10"

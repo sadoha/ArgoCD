@@ -29,7 +29,7 @@ variables:
     - name:         "infra-100-etcd"
       chart:        "etcd"
       repoUrl:      "registry-1.docker.io/bitnamicharts"
-      chartVersion: "10.5.3"
+      chartVersion: "10.5.3.999"
     - name:         "infra-100-mongodb"
       chart:        "mongodb"
       repoUrl:      "registry-1.docker.io/bitnamicharts"
