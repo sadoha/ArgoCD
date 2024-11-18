@@ -17,16 +17,16 @@ spec:
             repoURL: https://github.com/sadoha/ArgoCD.git
             revision: HEAD
             files:
-            - path: option3/argocd/environments/100/variables/key-components-apps.yaml
+            - path: option3/argocd/environments/100/variables/values.yaml
         - list:
             elements: []
-            elementsYaml: "{{ .key.components | toJson }}" 
+            elementsYaml: "{{ .variables.products | toJson }}" 
   template:
     metadata:
       namespace: argocd
       name: '{{.name}}'
     spec:
-      project: '{{.key.common.project}}'
+      project: '{{.variables.common.project}}'
       sources:
       - repoURL: https://github.com/sadoha/ArgoCD.git
         targetRevision: HEAD
@@ -36,13 +36,13 @@ spec:
             - name: image.tag
               value: '{{.appVersion}}'
           valueFiles:
-          - $values/option3/{{.product}}/environments/{{.key.common.environment}}/apps/{{.appName}}/values.yaml
+          - $values/option3/{{.product}}/environments/{{.variables.common.environment}}/apps/{{.appName}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: HEAD
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: 'applications-{{.key.common.environment}}-app'
+        namespace: 'applications-{{.variables.common.environment}}-app'
       syncPolicy:
         automated:
           prune: true
@@ -51,6 +51,6 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: 'applications-{{.key.common.environment}}-app'
+            project: 'applications-{{.variables.common.environment}}-app'
           annotations:
-            annotations: 'applications-{{.key.common.environment}}-app'
+            annotations: 'applications-{{.variables.common.environment}}-app'

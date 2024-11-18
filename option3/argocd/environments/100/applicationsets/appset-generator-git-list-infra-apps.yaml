@@ -17,29 +17,29 @@ spec:
             repoURL: https://github.com/sadoha/ArgoCD.git
             revision: HEAD
             files:
-            - path: option3/argocd/environments/100/variables/key-components-infra-apps.yaml
+            - path: option3/argocd/environments/100/variables/values.yaml
         - list:
             elements: []
-            elementsYaml: "{{ .key.components | toJson }}" 
+            elementsYaml: "{{ .variables.infrastructure | toJson }}" 
   template:
     metadata:
       namespace: argocd
       name: '{{.name}}'
     spec:
-      project: '{{.key.common.project}}'
+      project: '{{.variables.common.project}}'
       sources:
       - chart: '{{.chart}}'
         repoURL: '{{.repoUrl}}'
         targetRevision: '{{.chartVersion}}'
         helm:
           valueFiles:
-          - $values/option3/argocd/environments/{{.key.common.environment}}/applications/{{.chart}}/values.yaml
+          - $values/option3/argocd/environments/{{.variables.common.environment}}/applications/{{.chart}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: HEAD
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: 'applications-{{.key.common.environment}}-infra'
+        namespace: 'applications-{{.variables.common.environment}}-infra'
       syncPolicy:
         automated:
           prune: true
@@ -48,6 +48,6 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: 'applications-{{.key.common.environment}}-infra'
+            project: 'applications-{{.variables.common.environment}}-infra'
           annotations:
-            annotations: 'applications-{{.key.common.environment}}-infra'
+            annotations: 'applications-{{.variables.common.environment}}-infra'
