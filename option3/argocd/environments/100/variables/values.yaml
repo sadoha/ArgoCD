@@ -27,9 +27,9 @@ variables:
 
   infrastructure:
     - name:         "infra-100-etcd"
-      chart:        "etcd"
+      chart:        "etcd-ololo"
       repoUrl:      "registry-1.docker.io/bitnamicharts"
-      chartVersion: "10.5.3.999"
+      chartVersion: "10.5.3"
     - name:         "infra-100-mongodb"
       chart:        "mongodb"
       repoUrl:      "registry-1.docker.io/bitnamicharts"

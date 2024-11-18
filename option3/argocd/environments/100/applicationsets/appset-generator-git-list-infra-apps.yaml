@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: shared-100-applicationset
+  name: infra-100-applicationset
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: shared-100-applicationset
+    name: infra-100-applicationset
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]

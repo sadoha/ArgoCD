@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: project1-100-applicationset
+  name: apps-100-applicationset
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: project1-100-applicationset
+    name: apps-100-applicationset
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -54,3 +54,4 @@ spec:
             project: '{{.variables.common.environment}}-apps'
           annotations:
             annotations: '{{.variables.common.environment}}-apps'
+            argocd.argoproj.io/sync-wave: "0"
