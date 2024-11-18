@@ -36,13 +36,13 @@ spec:
             - name: image.tag
               value: '{{.appVersion}}'
           valueFiles:
-          - $values/option3/{{.product}}/environments/{{.variables.common.environment}}/apps/{{.appName}}/values.yaml
+          - $values/option3/argocd/environments/{{.variables.common.environment}}/products/{{.product}}/{{.appName}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: HEAD
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: 'applications-{{.variables.common.environment}}-app'
+        namespace: '{{.variables.common.environment}}-apps'
       syncPolicy:
         automated:
           prune: true
@@ -51,6 +51,6 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: 'applications-{{.variables.common.environment}}-app'
+            project: '{{.variables.common.environment}}-apps'
           annotations:
-            annotations: 'applications-{{.variables.common.environment}}-app'
+            annotations: '{{.variables.common.environment}}-apps'
