@@ -33,7 +33,7 @@ spec:
         targetRevision: '{{.chartVersion}}'
         helm:
           valueFiles:
-          - $values/option3/argocd/environments/{{.variables.common.environment}}/applications/{{.chart}}/values.yaml
+          - $values/option3/argocd/environments/{{.variables.common.environment}}/infrastructure/{{.chart}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: HEAD
         ref: values
