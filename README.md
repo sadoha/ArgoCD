@@ -223,3 +223,107 @@ Remove the environment:
 ```bash
 kubectl delete -f ./option2/applicationsets/proj-appset.yaml
 ```
+
+## 8. Deploy the environment using option3
+
+This configuration is more appropriate to use in a product. It is a draft, and this configuration neads fine tuning, but, here you can see an example, how to manage the architecture of directories for a projects and environments. This environments can be deployed by three options, as full environment with databases and application, as only applications or infrastructure apps only. I was done to provide a possibility to jangle the environment configuration in a testing and education goals. 
+
+The structure of catalogs:
+```bash
+./option3
+└── argocd
+    ├── applicationsets
+    │   └── appset-generator-git-all-environments.yaml
+    ├── common
+    │   ├── infrastructure
+    │   │   └── kube-prometheus-stack
+    │   │       └── values.yaml
+    │   └── variables
+    │       └── values.yaml
+    ├── environments
+    │   ├── 100
+    │   │   ├── applicationsets
+    │   │   │   ├── appset-generator-git-list-apps.yaml
+    │   │   │   └── appset-generator-git-list-infra-apps.yaml
+    │   │   ├── infrastructure
+    │   │   │   ├── etcd
+    │   │   │   │   └── values.yaml
+    │   │   │   └── mongodb
+    │   │   │       └── values.yaml
+    │   │   ├── products
+    │   │   │   ├── product1
+    │   │   │   │   ├── app1
+    │   │   │   │   │   └── values.yaml
+    │   │   │   │   └── app2
+    │   │   │   │       └── values.yaml
+    │   │   │   └── product2
+    │   │   │       ├── app1
+    │   │   │       │   └── values.yaml
+    │   │   │       └── app2
+    │   │   │           └── values.yaml
+    │   │   └── variables
+    │   │       └── values.yaml
+    │   └── 200
+    │       ├── applicationsets
+    │       │   ├── appset-generator-git-list-apps.yaml
+    │       │   └── appset-generator-git-list-infra-apps.yaml
+    │       ├── infrastructure
+    │       │   ├── etcd
+    │       │   │   └── values.yaml
+    │       │   └── mongodb
+    │       │       └── values.yaml
+    │       ├── products
+    │       │   ├── product1
+    │       │   │   ├── app1
+    │       │   │   │   └── values.yaml
+    │       │   │   └── app2
+    │       │   │       └── values.yaml
+    │       │   └── product2
+    │       │       ├── app1
+    │       │       │   └── values.yaml
+    │       │       └── app2
+    │       │           └── values.yaml
+    │       └── variables
+    │           └── values.yaml
+    └── projects
+        └── project.yaml
+```
+
+Deploy the environment (option 1):
+```bash
+kubectl apply -f ./option3/argocd/applicationsets/appset-generator-git-all-environments.yaml
+```
+
+Remove the environment (option 1):
+```bash
+kubectl delete -f ./option3/argocd/applicationsets/appset-generator-git-all-environments.yaml
+```
+
+Deploy the environment (option 2):
+```bash
+kubectl apply -f ./option3/argocd/projects/project.yaml
+kubectl apply -f ./option3/argocd/environments/100/applicationsets/appset-generator-git-list-apps.yaml
+kubectl apply -f ./option3/argocd/environments/200/applicationsets/appset-generator-git-list-apps.yaml
+```
+
+Remove the environment (option 2):
+```bash
+kubectl delete -f ./option3/argocd/environments/100/applicationsets/appset-generator-git-list-apps.yaml
+kubectl delete -f ./option3/argocd/environments/200/applicationsets/appset-generator-git-list-apps.yaml
+kubectl delete -f ./option3/argocd/projects/project.yaml
+```
+
+Deploy the environment (option 3):
+```bash
+kubectl apply -f ./option3/argocd/projects/project.yaml
+kubectl apply -f ./option3/argocd/environments/100/applicationsets/appset-generator-git-list-infra-apps.yaml
+kubectl apply -f ./option3/argocd/environments/200/applicationsets/appset-generator-git-list-infra-apps.yaml
+```
+
+Remove the environment (option 3):
+```bash
+kubectl delete -f ./option3/argocd/environments/100/applicationsets/appset-generator-git-list-infra-apps.yaml
+kubectl delete -f ./option3/argocd/environments/200/applicationsets/appset-generator-git-list-infra-apps.yaml
+kubectl delete -f ./option3/argocd/projects/project.yaml
+```
+
