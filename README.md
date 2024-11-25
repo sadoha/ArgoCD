@@ -73,7 +73,10 @@ argocd admin initial-password -n argocd
 Using the username `admin` and the password from above, login to Argo CD's IP or hostname:
 
 ```bash
-argocd login <ARGOCD_SERVER>
+argocd login <ARGOCD_SERVER> 
+
+For instance:
+argocd login 127.0.0.1:8080
 ```
 
 Change the password using the command:
