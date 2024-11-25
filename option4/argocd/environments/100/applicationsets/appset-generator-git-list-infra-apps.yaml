@@ -21,9 +21,6 @@ spec:
         - list:
             elements: []
             elementsYaml: "{{ .variables.infrastructure | toJson }}" 
-  syncset:
-  - matches: '{{.name}}'
-    weight: '-10'
   template:
     metadata:
       namespace: argocd
