@@ -14,5 +14,5 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
   #
 
-#podAnnotations:
-#  argocd.argoproj.io/sync-wave: "-10"
+podAnnotations:
+  argocd.argoproj.io/sync-wave: "-10"
