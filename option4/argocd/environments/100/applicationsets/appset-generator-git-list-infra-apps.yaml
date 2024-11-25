@@ -17,7 +17,7 @@ spec:
             repoURL: https://github.com/sadoha/ArgoCD.git
             revision: HEAD
             files:
-            - path: option3/argocd/environments/100/variables/values.yaml
+            - path: option4/argocd/environments/100/variables/values.yaml
         - list:
             elements: []
             elementsYaml: "{{ .variables.infrastructure | toJson }}" 
@@ -33,7 +33,7 @@ spec:
         targetRevision: '{{.chartVersion}}'
         helm:
           valueFiles:
-          - $values/option3/argocd/environments/{{.variables.common.environment}}/infrastructure/{{.chart}}/values.yaml
+          - $values/option4/argocd/environments/{{.variables.common.environment}}/infrastructure/{{.chart}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: HEAD
         ref: values
