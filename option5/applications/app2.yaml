@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
+  name: app2
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: proj-100
+  source:
+    repoURL: https://github.com/sadoha/ArgoCD.git
+    targetRevision: HEAD
+    path: helm/app
+    helm:
+      parameters:
+      - name: fullnameOverride
+        value: 'app2'
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: proj-100-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true       
+    syncOptions:
+    - CreateNamespace=true

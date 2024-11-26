@@ -105,3 +105,12 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+command: []
+
+stdin: []
+
+tty: []
+
+args: []
+
