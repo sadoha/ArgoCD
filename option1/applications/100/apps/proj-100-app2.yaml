@@ -34,6 +34,9 @@ spec:
         value: 'app2'
       # Values file as block file. Prefer to use valuesObject if possible (see below)
       values: |
+        command: [ "/bin/sh", "-c", "--" ]
+        args: [ "while true; do sleep 30; done;" ]
+
         autoscaling:
           enabled: true
           minReplicas: 1
