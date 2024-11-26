@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: shared-200-applicationset
+  name: apps-all-applicationset
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: shared-200-applicationset
+    name: apps-all-applicationset
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -17,10 +17,10 @@ spec:
             repoURL: https://github.com/sadoha/ArgoCD.git
             revision: HEAD
             files:
-            - path: option3/argocd/environments/200/variables/values.yaml
+            - path: option3/argocd/environments/*/variables/values.yaml
         - list:
             elements: []
-            elementsYaml: "{{ .variables.infrastructure | toJson }}" 
+            elementsYaml: "{{ .variables.products | toJson }}" 
   template:
     metadata:
       namespace: argocd
@@ -28,18 +28,21 @@ spec:
     spec:
       project: '{{.variables.common.project}}'
       sources:
-      - chart: '{{.chart}}'
-        repoURL: '{{.repoUrl}}'
-        targetRevision: '{{.chartVersion}}'
+      - repoURL: https://github.com/sadoha/ArgoCD.git
+        targetRevision: HEAD
+        path: 'helm/{{.chart}}'
         helm:
+          parameters:
+            - name: image.tag
+              value: '{{.appVersion}}'
           valueFiles:
-          - $values/option3/argocd/environments/{{.variables.common.environment}}/infrastructure/{{.chart}}/values.yaml
+          - $values/option3/argocd/environments/{{.variables.common.environment}}/products/{{.product}}/{{.appName}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: HEAD
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.variables.common.environment}}-infra'
+        namespace: '{{.variables.common.environment}}-apps'
       syncPolicy:
         automated:
           prune: true
@@ -48,6 +51,6 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: '{{.variables.common.environment}}-infra'
+            project: '{{.variables.common.environment}}-apps'
           annotations:
-            annotations: '{{.variables.common.environment}}-infra'
+            annotations: '{{.variables.common.environment}}-apps'

@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: apps-100-applicationset
+  name: infra-all-applicationset
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: apps-100-applicationset
+    name: infra-all-applicationset
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -17,34 +17,29 @@ spec:
             repoURL: https://github.com/sadoha/ArgoCD.git
             revision: HEAD
             files:
-            - path: option4/argocd/environments/100/variables/values.yaml
+            - path: option3/argocd/environments/*/variables/values.yaml
         - list:
             elements: []
-            elementsYaml: "{{ .variables.products | toJson }}" 
+            elementsYaml: "{{ .variables.infrastructure | toJson }}" 
   template:
     metadata:
       namespace: argocd
       name: '{{.name}}'
-      annotations:
-        argocd.argoproj.io/sync-wave: "10"
     spec:
       project: '{{.variables.common.project}}'
       sources:
-      - repoURL: https://github.com/sadoha/ArgoCD.git
-        targetRevision: HEAD
-        path: 'helm/{{.chart}}'
+      - chart: '{{.chart}}'
+        repoURL: '{{.repoUrl}}'
+        targetRevision: '{{.chartVersion}}'
         helm:
-          parameters:
-            - name: image.tag
-              value: '{{.appVersion}}'
           valueFiles:
-          - $values/option4/argocd/environments/{{.variables.common.environment}}/products/{{.product}}/{{.appName}}/values.yaml
+          - $values/option3/argocd/environments/{{.variables.common.environment}}/infrastructure/{{.chart}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: HEAD
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.variables.common.environment}}-apps'
+        namespace: '{{.variables.common.environment}}-infra'
       syncPolicy:
         automated:
           prune: true
@@ -53,6 +48,6 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: '{{.variables.common.environment}}-apps'
+            project: '{{.variables.common.environment}}-infra'
           annotations:
-            annotations: '{{.variables.common.environment}}-apps'
+            annotations: '{{.variables.common.environment}}-infra'
