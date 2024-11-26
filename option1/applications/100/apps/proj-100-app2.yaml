@@ -60,12 +60,13 @@ spec:
     namespace: proj-100-app
   # Sync policy
   syncPolicy:
+    applicationsSync: create-only
     # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
     automated:
       # Specifies if resources should be pruned during auto-syncing ( false by default ).
-      prune: false
+      prune: true
       # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
-      selfHeal: false       
+      selfHeal: true       
     # Sync options which modifies sync behavior
     syncOptions:
     # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
