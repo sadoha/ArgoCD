@@ -1,0 +1,36 @@
+variables:
+  common:
+    environment:    "200"
+    project:        "project1"
+
+  products:
+    - name:         "product1-200-app1"
+      product:      "product1"
+      chart:        "app"
+      appName:      "app1"
+      appVersion:   "1.27.1-alpine-slim"
+    - name:         "product1-200-app2"
+      product:      "product1"
+      chart:        "app"
+      appName:      "app2"
+      appVersion:   "1.27.2-alpine-slim"
+    - name:         "product2-200-app1"
+      product:      "product2"
+      chart:        "app"
+      appName:      "app1"
+      appVersion:   "1.26.1-alpine-slim"
+    - name:         "product2-200-app2"
+      product:      "product2"
+      chart:        "app"
+      appName:      "app2"
+      appVersion:   "1.26.2-alpine-slim"
+
+  infrastructure:
+    - name:         "infra-200-etcd"
+      chart:        "etcd"
+      repoUrl:      "registry-1.docker.io/bitnamicharts"
+      chartVersion: "10.5.3"
+    - name:         "infra-200-mongodb"
+      chart:        "mongodb"
+      repoUrl:      "registry-1.docker.io/bitnamicharts"
+      chartVersion: "16.3.0"

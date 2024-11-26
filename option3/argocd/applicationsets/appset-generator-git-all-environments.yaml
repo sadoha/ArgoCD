@@ -1,25 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: full-environment-deploy
+  name: project1-all-apps
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: full-environment-deploy
+    name: project1-all-apps
 spec:
   generators:
     - git:
         repoURL: https://github.com/sadoha/ArgoCD.git
         revision: HEAD
         directories:
-          - path: option3/argocd/applicationsets/*
-          - path: option3/argocd/applicationsets/appset-generator-git-full-environment-deploy.yaml
-            exclude: true
+          - path: option3/argocd/environments/*
   template:
     metadata:
       namespace: argocd
-      name: full-environment-deploy
+      name: project1-{{path.basename}}-all-apps
     spec:
       project: default
       sources:
@@ -28,7 +26,7 @@ spec:
         path: option3/argocd/projects
       - repoURL: https://github.com/sadoha/ArgoCD.git
         targetRevision: HEAD
-        path: option3/argocd/applicationsets
+        path: option3/argocd/environments/{{path.basename}}/applicationsets
       destination:
         namespace: argocd
         server: https://kubernetes.default.svc
