@@ -60,7 +60,6 @@ spec:
     namespace: proj-100-app
   # Sync policy
   syncPolicy:
-    applicationsSync: create-only
     # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
     automated:
       # Specifies if resources should be pruned during auto-syncing ( false by default ).

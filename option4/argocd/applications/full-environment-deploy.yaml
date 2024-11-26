@@ -1,0 +1,28 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: full-environment-deploy
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: full-environment-deploy
+spec:
+  project: default
+  sources:
+  - repoURL: https://github.com/sadoha/ArgoCD.git
+    targetRevision: HEAD
+    path: option4/argocd/applicationsets/
+  - repoURL: https://github.com/sadoha/ArgoCD.git
+    targetRevision: HEAD
+    path: option4/argocd/projects/
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true       
+    syncOptions:
+    - CreateNamespace=true
