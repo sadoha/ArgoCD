@@ -17,7 +17,7 @@ spec:
             repoURL: https://github.com/sadoha/ArgoCD.git
             revision: HEAD
             files:
-            - path: option3/argocd/environments/*/variables/values.yaml
+            - path: option4/argocd/environments/*/variables/values.yaml
         - list:
             elements: []
             elementsYaml: "{{ .variables.products | toJson }}" 
@@ -36,7 +36,7 @@ spec:
             - name: image.tag
               value: '{{.appVersion}}'
           valueFiles:
-          - $values/option3/argocd/environments/{{.variables.common.environment}}/products/{{.product}}/{{.appName}}/values.yaml
+          - $values/option4/argocd/environments/{{.variables.common.environment}}/products/{{.product}}/{{.appName}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: HEAD
         ref: values
