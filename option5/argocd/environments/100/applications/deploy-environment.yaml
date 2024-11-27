@@ -13,10 +13,10 @@ spec:
   sources:
   - repoURL: https://github.com/sadoha/ArgoCD.git
     targetRevision: HEAD
-    path: option5/argocd/environments/100/infrastructure/applicationsets/
+    path: option5/argocd/environments/100/products/applicationsets/
   - repoURL: https://github.com/sadoha/ArgoCD.git
     targetRevision: HEAD
-    path: option5/argocd/environments/100/products/applicationsets/
+    path: option5/argocd/environments/100/infrastructure/applicationsets/
   destination: 
     server: https://kubernetes.default.svc
     namespace: argocd
