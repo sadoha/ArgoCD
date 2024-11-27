@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: infra-100-applicationset
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: infra-100-applicationset
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+        - git:
+            repoURL: https://github.com/sadoha/ArgoCD.git
+            revision: HEAD
+            files:
+            - path: option5/argocd/environments/100/variables/values.yaml
+        - list:
+            elements: []
+            elementsYaml: "{{ .variables.infrastructure | toJson }}" 
+  template:
+    metadata:
+      namespace: argocd
+      name: '{{.name}}'
+      annotations:
+        argocd.argoproj.io/sync-wave: "-10"
+    spec:
+      project: '{{.variables.common.project}}'
+      sources:
+      - chart: '{{.chart}}'
+        repoURL: '{{.repoUrl}}'
+        targetRevision: '{{.chartVersion}}'
+        helm:
+          valueFiles:
+          - $values/option5/argocd/environments/{{.variables.common.environment}}/infrastructure/{{.chart}}/values.yaml
+      - repoURL: 'https://github.com/sadoha/ArgoCD.git'
+        targetRevision: HEAD
+        ref: values
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{.variables.common.environment}}-infra'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+        managedNamespaceMetadata: 
+          labels:
+            project: '{{.variables.common.environment}}-infra'
+          annotations:
+            annotations: '{{.variables.common.environment}}-infra'
