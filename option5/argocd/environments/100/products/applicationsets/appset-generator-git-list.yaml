@@ -25,8 +25,6 @@ spec:
     metadata:
       namespace: argocd
       name: '{{.name}}'
-      annotations:
-        argocd.argoproj.io/sync-wave: '{{.syncWave}}'
     spec:
       project: '{{.variables.common.project}}'
       sources:
