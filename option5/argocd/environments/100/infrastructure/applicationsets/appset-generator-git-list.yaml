@@ -35,7 +35,7 @@ spec:
         targetRevision: '{{.chartVersion}}'
         helm:
           valueFiles:
-          - $values/option5/argocd/environments/{{.variables.common.environment}}/infrastructure/{{.chart}}/values.yaml
+          - $values/option5/argocd/environments/{{.variables.common.environment}}/infrastructure/values/{{.chart}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: HEAD
         ref: values
@@ -50,6 +50,6 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: '{{.variables.common.environment}}-infra'
+            project: '{{.variables.common.project}}'
           annotations:
             annotations: '{{.variables.common.environment}}-infra'

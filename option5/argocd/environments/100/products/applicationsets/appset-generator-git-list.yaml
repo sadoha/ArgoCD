@@ -36,7 +36,7 @@ spec:
             - name: image.tag
               value: '{{.appVersion}}'
           valueFiles:
-          - $values/option5/argocd/environments/{{.variables.common.environment}}/products/{{.product}}/{{.appName}}/values.yaml
+          - $values/option5/argocd/environments/{{.variables.common.environment}}/products/values/{{.product}}/{{.appName}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: HEAD
         ref: values
@@ -51,6 +51,6 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: '{{.variables.common.environment}}-apps'
+            project: '{{.variables.common.project}}'
           annotations:
             annotations: '{{.variables.common.environment}}-apps'

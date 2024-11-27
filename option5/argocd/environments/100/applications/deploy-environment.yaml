@@ -2,18 +2,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: full-environment-deploy
+  name: deploy-environment-100
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: full-environment-deploy
+    name: deploy-environment-100
 spec:
-  project: default
+  project: project1
   sources:
   - repoURL: https://github.com/sadoha/ArgoCD.git
     targetRevision: HEAD
-    path: option5/argocd/environments/100/applications/
+    path: option5/argocd/environments/100/infrastructure/applicationsets/
+  - repoURL: https://github.com/sadoha/ArgoCD.git
+    targetRevision: HEAD
+    path: option5/argocd/environments/100/products/applicationsets/
   destination: 
     server: https://kubernetes.default.svc
     namespace: argocd
