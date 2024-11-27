@@ -44,9 +44,10 @@ spec:
         server: https://kubernetes.default.svc
         namespace: '{{.variables.common.environment}}-apps'
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        applicationsSync: create-only
+        #automated:
+        #  prune: true
+        #  selfHeal: true
         syncOptions:
           - CreateNamespace=true
         managedNamespaceMetadata: 

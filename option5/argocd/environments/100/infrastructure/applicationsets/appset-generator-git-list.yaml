@@ -26,7 +26,8 @@ spec:
       namespace: argocd
       name: '{{.name}}'
       annotations:
-        argocd.argoproj.io/sync-wave: "-10"
+        argocd.argoproj.io/hook: 'Sync'
+        argocd.argoproj.io/sync-wave: '-10'
     spec:
       project: '{{.variables.common.project}}'
       sources:
@@ -43,9 +44,10 @@ spec:
         server: https://kubernetes.default.svc
         namespace: '{{.variables.common.environment}}-infra'
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        applicationsSync: create-only
+        #automated:
+        #  prune: true
+        #  selfHeal: true
         syncOptions:
           - CreateNamespace=true
         managedNamespaceMetadata: 
