@@ -1,0 +1,25 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: limon-100-primary-shared-infra
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
+spec:
+  project: limon
+  sources:
+  - repoURL: https://github.com/sadoha/ArgoCD.git
+    targetRevision: HEAD
+    path: helm/etcd
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true       
+    syncOptions:
+    - CreateNamespace=true
