@@ -20,11 +20,8 @@ spec:
       namespace: argocd
       name: banana-{{path.basename}}-all-applications
     spec:
-      project: default
+      project: banana
       sources:
-      - repoURL: https://github.com/sadoha/ArgoCD.git
-        targetRevision: HEAD
-        path: option6/projects
       - repoURL: https://github.com/sadoha/ArgoCD.git
         targetRevision: HEAD
         path: option6/environments/{{path.basename}}/applicationsets
