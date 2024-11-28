@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: limon-100-primary-shared-infra
+  name: limon-100-primary-shared-infra-test
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
