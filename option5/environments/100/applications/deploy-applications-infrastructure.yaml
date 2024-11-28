@@ -13,10 +13,9 @@ spec:
   sources:
   - repoURL: https://github.com/sadoha/ArgoCD.git
     targetRevision: HEAD
-    path: helm/etcd
-    #path: option5/environments/100/applicationsets/
-    #directory:
-    #  include: '*-infrastructure.yaml'
+    path: option5/environments/100/applicationsets/
+    directory:
+      include: '*-infrastructure.yaml'
   destination: 
     server: https://kubernetes.default.svc
     namespace: argocd
