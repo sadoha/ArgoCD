@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: limon-100-primary-shared-infrastructure
+  name: limon-100-primary-shared-infra
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: limon-100-primary-shared-infrastructure
+    name: limon-100-primary-shared-infra
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -39,7 +39,7 @@ spec:
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.variables.common.project}}-{{.variables.common.type}}-{{.variables.common.environment}}-{{.product}}-infrastructure'
+        namespace: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.product}}-{{.productType}}'
       syncPolicy:
         automated:
           prune: true
@@ -48,6 +48,4 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: '{{.variables.common.project}}'
-          annotations:
-            annotations: '{{.product}}-{{.variables.common.environment}}-infrastructure'
+            project: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.product}}-{{.productType}}'
