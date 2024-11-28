@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: project1
+  name: limon
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io

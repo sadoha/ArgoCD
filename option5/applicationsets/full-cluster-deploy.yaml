@@ -5,8 +5,8 @@ metadata:
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
-  labels:
-    name: full-cluster-deploy
+#  labels:
+#    name: full-cluster-deploy
 spec:
   syncPolicy:
     applicationsSync: create-delete
@@ -21,7 +21,7 @@ spec:
   template:
     metadata:
       namespace: argocd
-      name: full-cluster-deploy
+      name: deploy-{{path[3]}}-{{path.basename}}
     spec:
       project: default
       sources:
@@ -34,6 +34,6 @@ spec:
       destination:
         namespace: argocd
         server: https://kubernetes.default.svc
-#      syncPolicy:
-#        automated:
-#          prune: true
+      syncPolicy:
+        automated:
+          prune: true

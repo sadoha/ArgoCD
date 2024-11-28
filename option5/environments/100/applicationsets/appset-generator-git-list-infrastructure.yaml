@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: apps-200-applicationset
+  name: applicationset-100-infrastructure
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: apps-200-applicationset
+    name: applicationset-100-infrastructure
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -17,10 +17,10 @@ spec:
             repoURL: https://github.com/sadoha/ArgoCD.git
             revision: HEAD
             files:
-            - path: option5/argocd/environments/200/variables/values.yaml
+            - path: option5/environments/100/variables/values.yaml
         - list:
             elements: []
-            elementsYaml: "{{ .variables.products | toJson }}" 
+            elementsYaml: "{{ .variables.infrastructure | toJson }}" 
   template:
     metadata:
       namespace: argocd
@@ -28,21 +28,18 @@ spec:
     spec:
       project: '{{.variables.common.project}}'
       sources:
-      - repoURL: https://github.com/sadoha/ArgoCD.git
-        targetRevision: HEAD
-        path: 'helm/{{.chart}}'
+      - chart: '{{.chart}}'
+        repoURL: '{{.repoUrl}}'
+        targetRevision: '{{.chartVersion}}'
         helm:
-          parameters:
-            - name: image.tag
-              value: '{{.appVersion}}'
           valueFiles:
-          - $values/option5/argocd/environments/{{.variables.common.environment}}/products/values/{{.product}}/{{.appName}}/values.yaml
+          - $values/option5/environments/{{.variables.common.environment}}/infrastructure/values/{{.chart}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: HEAD
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.variables.common.environment}}-apps'
+        namespace: '{{.variables.common.environment}}-infra'
       syncPolicy:
         automated:
           prune: true
@@ -53,4 +50,4 @@ spec:
           labels:
             project: '{{.variables.common.project}}'
           annotations:
-            annotations: '{{.variables.common.environment}}-apps'
+            annotations: '{{.variables.common.environment}}-infra'

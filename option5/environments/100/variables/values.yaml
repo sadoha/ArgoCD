@@ -1,7 +1,7 @@
 variables:
   common:
     environment:    "100"
-    project:        "project1"
+    project:        "limon"
 
   products:
     - name:         "product1-100-app1"
