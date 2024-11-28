@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: applicationset-100-infrastructure
+  name: limon-100-primary-shared-infrastructure
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: applicationset-100-infrastructure
+    name: limon-100-primary-shared-infrastructure
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -39,7 +39,7 @@ spec:
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.product}}-{{.variables.common.environment}}-infrastructure'
+        namespace: '{{.variables.common.project}}-{{.variables.common.type}}-{{.variables.common.environment}}-{{.product}}-infrastructure'
       syncPolicy:
         automated:
           prune: true

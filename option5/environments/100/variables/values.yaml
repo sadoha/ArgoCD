@@ -2,6 +2,7 @@ variables:
   common:
     environment:    "100"
     project:        "limon"
+    type:           "primary"
 
   products:
     - name:         "product1-100-app1"
