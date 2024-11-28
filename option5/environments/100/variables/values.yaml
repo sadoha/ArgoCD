@@ -27,10 +27,12 @@ variables:
 
   infrastructure:
     - name:         "infra-100-etcd"
+      product:      "shared"
       chart:        "etcd"
       repoUrl:      "registry-1.docker.io/bitnamicharts"
       chartVersion: "10.5.3"
     - name:         "infra-100-mongodb"
+      product:      "shared"
       chart:        "mongodb"
       repoUrl:      "registry-1.docker.io/bitnamicharts"
       chartVersion: "16.3.0"

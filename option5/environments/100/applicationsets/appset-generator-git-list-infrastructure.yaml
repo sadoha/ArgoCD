@@ -39,7 +39,7 @@ spec:
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.variables.common.environment}}-infra'
+        namespace: '{{.product}}-{{.variables.common.environment}}-infrastructure'
       syncPolicy:
         automated:
           prune: true
@@ -50,4 +50,4 @@ spec:
           labels:
             project: '{{.variables.common.project}}'
           annotations:
-            annotations: '{{.variables.common.environment}}-infra'
+            annotations: '{{.product}}-{{.variables.common.environment}}-infrastructure'
