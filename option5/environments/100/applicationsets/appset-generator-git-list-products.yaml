@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: apps-100-applicationset
+  name: limon-100-primary-products
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: apps-100-applicationset
+    name: limon-100-primary-products
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -17,14 +17,14 @@ spec:
             repoURL: https://github.com/sadoha/ArgoCD.git
             revision: HEAD
             files:
-            - path: option5/argocd/environments/100/variables/values.yaml
+            - path: option5/environments/100/variables/values.yaml
         - list:
             elements: []
             elementsYaml: "{{ .variables.products | toJson }}" 
   template:
     metadata:
       namespace: argocd
-      name: '{{.name}}'
+      name: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.product}}-{{.productType}}-{{.name}}'
     spec:
       project: '{{.variables.common.project}}'
       sources:
@@ -36,13 +36,13 @@ spec:
             - name: image.tag
               value: '{{.appVersion}}'
           valueFiles:
-          - $values/option5/argocd/environments/{{.variables.common.environment}}/products/values/{{.product}}/{{.appName}}/values.yaml
+          - $values/option5/environments/{{.variables.common.environment}}/products/values/{{.product}}/{{.name}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: HEAD
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.variables.common.environment}}-apps'
+        namespace: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.product}}-{{.productType}}'
       syncPolicy:
         automated:
           prune: true
@@ -51,6 +51,4 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: '{{.variables.common.project}}'
-          annotations:
-            annotations: '{{.variables.common.environment}}-apps'
+            project: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.product}}-{{.productType}}'

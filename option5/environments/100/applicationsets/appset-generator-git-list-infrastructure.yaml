@@ -24,7 +24,7 @@ spec:
   template:
     metadata:
       namespace: argocd
-      name: '{{.name}}'
+      name: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.product}}-{{.productType}}-{{.name}}'
     spec:
       project: '{{.variables.common.project}}'
       sources:
