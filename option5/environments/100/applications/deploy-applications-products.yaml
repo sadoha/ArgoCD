@@ -11,7 +11,7 @@ spec:
   sources:
   - repoURL: https://github.com/sadoha/ArgoCD.git
     targetRevision: HEAD
-    path: helm/app
+    path: helm/etcd
     #path: option5/environments/100/applicationsets/
     #directory:
     #  include: '*-products.yaml'
