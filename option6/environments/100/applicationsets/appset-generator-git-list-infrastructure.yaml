@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: limon-100-primary-shared-infra
+  name: banana-100-primary-shared-infra
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: limon-100-primary-shared-infra
+    name: banana-100-primary-shared-infra
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]

@@ -1,7 +1,7 @@
 variables:
   common:
     environment:    "100"
-    project:        "limon"
+    project:        "banana"
     type:           "primary"
 
   products:

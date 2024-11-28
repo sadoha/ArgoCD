@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: limon-100-primary-products
+  name: banana-100-primary-products
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: limon-100-primary-products
+    name: banana-100-primary-products
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
