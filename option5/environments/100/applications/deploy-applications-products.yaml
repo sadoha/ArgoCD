@@ -1,0 +1,25 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: limon-100-primary-products
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: limon
+  sources:
+  - repoURL: https://github.com/sadoha/ArgoCD.git
+    targetRevision: HEAD
+    path: option5/environments/100/applicationsets/
+    directory:
+      include: '*-products.yaml'
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true       
+    syncOptions:
+    - CreateNamespace=true
