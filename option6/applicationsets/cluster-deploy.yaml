@@ -1,0 +1,37 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cluster-deploy
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/sadoha/ArgoCD.git
+        revision: HEAD
+        directories:
+          - path: option6/environments/*
+          - path: option6/environments/*/variables
+            exclude: true 
+  template:
+    metadata:
+      namespace: argocd
+      name: project1-{{path.basename}}-all-apps
+    spec:
+      project: default
+      sources:
+      - repoURL: https://github.com/sadoha/ArgoCD.git
+        targetRevision: HEAD
+        path: option6/projects
+      - repoURL: https://github.com/sadoha/ArgoCD.git
+        targetRevision: HEAD
+        path: option6/environments/{{path.basename}}/applicationsets
+      destination:
+        namespace: argocd
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
