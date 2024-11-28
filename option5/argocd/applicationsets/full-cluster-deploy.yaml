@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: full-cluster-deploy
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: full-cluster-deploy
+spec:
+  syncPolicy:
+    applicationsSync: create-delete
+  generators:
+    - git:
+        repoURL: https://github.com/sadoha/ArgoCD.git
+        revision: HEAD
+        directories:
+          - path: option5/argocd/environments/*/*
+          - path: option5/argocd/environments/*/variables
+            exclude: true 
+  template:
+    metadata:
+      namespace: argocd
+      name: full-cluster-deploy
+    spec:
+      project: default
+      sources:
+      - repoURL: https://github.com/sadoha/ArgoCD.git
+        targetRevision: HEAD
+        path: option5/argocd/environments/{{path[3]}}/{{path.basename}}/applicationsets
+      #- repoURL: https://github.com/sadoha/ArgoCD.git
+      #  targetRevision: HEAD
+      #  path: option5/argocd/projects
+      destination:
+        namespace: argocd
+        server: https://kubernetes.default.svc
+#      syncPolicy:
+#        automated:
+#          prune: true
