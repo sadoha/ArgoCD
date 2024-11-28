@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: cluster-deploy
+  name: banana-cluster-deploy
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
@@ -18,7 +18,7 @@ spec:
   template:
     metadata:
       namespace: argocd
-      name: project1-{{path.basename}}-all-apps
+      name: banana-{{path.basename}}-all-applications
     spec:
       project: default
       sources:
