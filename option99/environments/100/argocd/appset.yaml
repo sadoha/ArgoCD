@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: silo-99-100-primary-shared-infra
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: silo-99-100-primary-shared-infra
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+        - git:
+            repoURL: https://github.com/sadoha/ArgoCD.git
+            revision: stan-sandbox
+            files:
+            - path: option6/environments/100/variables/values.yaml
+        - list:
+            elements: ['']
+            elementsYaml: "{{ .variables.parameters | toJson }}"
+  template:
+    metadata:
+      namespace: argocd
+      # {{ (index .Environment.Values.db (readFile "../vars.yaml" | fromYaml | get "group.infra") ).mongodb.password | quote }}
+      # name: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.app}}-{{.appType}}-{{.name}}'
+      
+      name: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type }}-{{ .name }}'
+    spec:
+      project: '{{.variables.common.project}}'
+      sources:
+      - chart: '{{.chart}}'
+        repoURL: '{{.repoUrl}}'
+        targetRevision: '{{.chartVersion}}'
+        helm:
+          valueFiles:
+          - $values/option6/environments/{{.variables.common.environment}}/{{ .type }}/values/{{ .chart }}/values.yaml
+      - repoURL: 'https://github.com/sadoha/ArgoCD.git'
+        targetRevision: stan-sandbox
+        ref: values
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.app}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+        managedNamespaceMetadata: 
+          labels:
+            project: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.app}}'
