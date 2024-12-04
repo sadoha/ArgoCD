@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: silo98-200-primary-products
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: silo98-200-primary-products
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+        - git:
+            repoURL: https://github.com/sadoha/ArgoCD.git
+            revision: stan-sandbox
+            files:
+            - path: option98/environments/200/variables/values.yaml
+        - list:
+            elements: []
+            elementsYaml: "{{ .variables.products | toJson }}" 
+  template:
+    metadata:
+      namespace: argocd
+      name: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.product}}-{{.productType}}-{{.name}}'
+    spec:
+      project: '{{.variables.common.project}}'
+      sources:
+      - repoURL: https://github.com/sadoha/ArgoCD.git
+        targetrevision: stan-sandbox
+        path: 'helm/{{.chart}}'
+        helm:
+          parameters:
+            - name: image.tag
+              value: '{{.appVersion}}'
+          valueFiles:
+          - $values/option98/environments/{{.variables.common.environment}}/products/values/{{.product}}/{{.name}}/values.yaml
+      - repoURL: 'https://github.com/sadoha/ArgoCD.git'
+        targetrevision: stan-sandbox
+        ref: values
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.product}}-{{.productType}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+        managedNamespaceMetadata: 
+          labels:
+            project: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.product}}-{{.productType}}'
