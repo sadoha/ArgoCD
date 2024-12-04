@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: silo-99-shared-infra
+  name: silo-99
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: silo-99-100-shared-infra
+    name: silo-99
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -17,7 +17,7 @@ spec:
             repoURL: https://github.com/sadoha/ArgoCD.git
             revision: stan-sandbox
             files:
-            - path: option6/environments/100/vars.yaml
+            - path: option99/environments/100/vars.yaml
         - list:
             elements: ['']
             elementsYaml: "{{ .variables.parameters | toJson }}"
