@@ -23,7 +23,7 @@ spec:
       project: silo98
       sources:
       - repoURL: https://github.com/sadoha/ArgoCD.git
-        targetrevision: stan-sandbox
+        targetRevision: stan-sandbox
         path: option98/environments/{{path.basename}}/applicationsets
       destination:
         namespace: argocd

@@ -29,7 +29,7 @@ spec:
       project: '{{.variables.common.project}}'
       sources:
       - repoURL: https://github.com/sadoha/ArgoCD.git
-        targetrevision: stan-sandbox
+        targetRevision: stan-sandbox
         path: 'helm/{{.chart}}'
         helm:
           parameters:
@@ -38,7 +38,7 @@ spec:
           valueFiles:
           - $values/option98/environments/{{.variables.common.environment}}/products/values/{{.product}}/{{.name}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
-        targetrevision: stan-sandbox
+        targetRevision: stan-sandbox
         ref: values
       destination:
         server: https://kubernetes.default.svc

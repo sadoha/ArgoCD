@@ -35,7 +35,7 @@ spec:
           valueFiles:
           - $values/option98/environments/{{.variables.common.environment}}/infrastructure/values/{{.chart}}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
-        targetrevision: stan-sandbox
+        targetRevision: stan-sandbox
         ref: values
       destination:
         server: https://kubernetes.default.svc

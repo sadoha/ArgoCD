@@ -9,10 +9,12 @@ variables:
         - name:         "app1"
           group:        "app1"
           chart:        "app"
+          repoUrl:      "registry-1.docker.io/alpine"
           chartVersion: "1.27.1-alpine-slim"
         - name:         "app2"
           group:         "app1"
           chart:        "app"
+          repoUrl:      "registry-1.docker.io/alpine"
           chartVersion: "1.27.2-alpine-slim"
     - type: infra
       applications:
