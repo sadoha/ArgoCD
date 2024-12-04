@@ -36,7 +36,7 @@ spec:
         targetRevision: '{{.chartVersion}}'
         helm:
           valueFiles:
-          - $values/option6/environments/{{.variables.common.environment}}/{{ .type }}/values/{{ .chart }}/values.yaml
+          - $values/option99/environments/{{.variables.common.environment}}/{{ .type }}/values/{{ .chart }}/values.yaml
       - repoURL: 'https://github.com/sadoha/ArgoCD.git'
         targetRevision: stan-sandbox
         ref: values
