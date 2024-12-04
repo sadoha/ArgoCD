@@ -17,7 +17,7 @@ spec:
             repoURL: https://github.com/sadoha/ArgoCD.git
             revision: stan-sandbox
             files:
-            - path: option6/environments/100/variables/values.yaml
+            - path: option6/environments/100/vars.yaml
         - list:
             elements: ['']
             elementsYaml: "{{ .variables.parameters | toJson }}"
