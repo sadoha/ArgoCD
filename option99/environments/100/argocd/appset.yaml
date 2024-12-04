@@ -20,7 +20,13 @@ spec:
             - path: option99/environments/100/vars.yaml
         - list:
             elements: ['']
-            elementsYaml: "{{ .variables.parameters | toJson }}"
+            elementsYaml: |
+                {{- $parameters := .variables.parameters -}}
+                {{- range $type := $parameters -}}
+                  {{- range $app := $type.applications -}}
+                    {{- $app | merge (dict "type" $type.type) | toJson -}}
+                  {{- end -}}
+                {{- end -}}
   template:
     metadata:
       namespace: argocd
@@ -42,7 +48,7 @@ spec:
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.app}}'
+        namespace: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.type}}-{{.app}}'
       syncPolicy:
         automated:
           prune: true
@@ -51,4 +57,4 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.app}}'
+            project: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.type}}-{{.app}}'

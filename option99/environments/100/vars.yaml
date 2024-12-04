@@ -2,7 +2,6 @@ variables:
   common:
     environment:    "100"
     project:        "silo-99"
-    type:           "primary"
 
   parameters:
     - type: app
