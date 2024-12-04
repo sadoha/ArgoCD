@@ -20,7 +20,7 @@ spec:
             - path: option99/environments/100/vars.yaml
         - list:
             elements: ['']
-            elementsYaml: "{{ .variables.parameters | toJson }}"
+            elementsYaml: "{{ .parameters | toJson }}"
   template:
     metadata:
       namespace: argocd

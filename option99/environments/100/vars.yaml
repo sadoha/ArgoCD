@@ -4,26 +4,26 @@ variables:
     project:        "silo-99"
     type:           "primary"
 
-  parameters:
-    - type: app
-      applications:
-        - name:         "app1"
-          group:        "app1"
-          chart:        "app"
-          chartVersion: "1.27.1-alpine-slim"
-        - name:         "app2"
-          group:         "app1"
-          chart:        "app"
-          chartVersion: "1.27.2-alpine-slim"
-    - type: infra
-      applications:
-        - name:         "etcd"
-          group:        "shared"
-          chart:        "etcd"
-          repoUrl:      "registry-1.docker.io/bitnamicharts"
-          chartVersion: "10.5.3"
-        - name:         "mongodb"
-          group:        "shared"
-          chart:        "mongodb"
-          repoUrl:      "registry-1.docker.io/bitnamicharts"
-          chartVersion: "16.3.0"
+parameters:
+  - type: app
+    applications:
+      - name:         "app1"
+        group:        "app1"
+        chart:        "app"
+        chartVersion: "1.27.1-alpine-slim"
+      - name:         "app2"
+        group:         "app1"
+        chart:        "app"
+        chartVersion: "1.27.2-alpine-slim"
+  - type: infra
+    applications:
+      - name:         "etcd"
+        group:        "shared"
+        chart:        "etcd"
+        repoUrl:      "registry-1.docker.io/bitnamicharts"
+        chartVersion: "10.5.3"
+      - name:         "mongodb"
+        group:        "shared"
+        chart:        "mongodb"
+        repoUrl:      "registry-1.docker.io/bitnamicharts"
+        chartVersion: "16.3.0"
