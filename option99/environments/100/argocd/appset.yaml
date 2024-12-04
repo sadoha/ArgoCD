@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: silo-99-100-primary-shared-infra
+  name: silo-99-shared-infra
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: silo-99-100-primary-shared-infra
+    name: silo-99-100-shared-infra
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]

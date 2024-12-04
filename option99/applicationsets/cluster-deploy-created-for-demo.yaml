@@ -12,8 +12,8 @@ spec:
         repoURL: https://github.com/sadoha/ArgoCD.git
         revision: stan-sandbox
         directories:
-          - path: option6/environments/*
-          - path: option6/environments/*/variables
+          - path: option99/environments/*
+          - path: option99/environments/*/variables
             exclude: true 
   template:
     metadata:
@@ -24,7 +24,7 @@ spec:
       sources:
       - repoURL: https://github.com/sadoha/ArgoCD.git
         targetRevision: stan-sandbox
-        path: option6/environments/{{path.basename}}/applicationsets
+        path: option99/environments/{{path.basename}}/argocd
       destination:
         namespace: argocd
         server: https://kubernetes.default.svc
