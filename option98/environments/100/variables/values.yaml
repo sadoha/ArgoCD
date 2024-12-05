@@ -3,6 +3,9 @@ variables:
     environment:    "100"
     project:        "silo98"
     type:           "primary"
+    option:         "option98"
+    revision:       "stan-sandbox"
+    gitRepo:        "https://github.com/sadoha/ArgoCD.git"
 
   products:
     - name:         "app1.1"
