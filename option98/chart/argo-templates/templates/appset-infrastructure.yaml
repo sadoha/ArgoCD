@@ -20,26 +20,28 @@ spec:
             - path: {{ .Values.variables.common.option }}/environments/{{ .Values.variables.common.environment }}/variables/values.yaml
         - list:
             elements: []
-            elementsYaml: "{{ .variables.infrastructure | toJson }}" 
+            elementsYaml: {{`"{{ .variables.products | toJson }}"`}}
   template:
     metadata:
       namespace: argocd
-      name: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.product}}-{{.productType}}-{{.name}}'
+      name: {{`"{{ .variables.common.project }}-{{ .variables.common.environment }}-{{ .variables.common.type }}-{{ .product }}-{{ .productType }}-{{ .name }}"`}}
+      annotations:
+        argocd.argoproj.io/sync-wave: "-2"
     spec:
-      project: '{{.variables.common.project}}'
+      project: {{`"{{ .variables.common.project }}"`}}
       sources:
-      - chart: '{{.chart}}'
-        repoURL: '{{.repoUrl}}'
-        targetRevision: '{{.chartVersion}}'
+      - chart: {{`"{{ .chart }}"`}}
+        repoURL: {{`"{{.repoUrl}}"`}}
+        targetRevision: {{`"{{.chartVersion}}"`}}
         helm:
           valueFiles:
-          - $values/{{ .Values.variables.common.option }}/environments/{{.variables.common.environment}}/infrastructure/values/{{.chart}}/values.yaml
-      - repoURL: {{ .Values.variables.common.gitRepo }}
-        targetRevision: {{ .Values.variables.common.revision }}
+          - {{`"$values/{{ .variables.common.option }}/environments/{{.variables.common.environment}}/infrastructure/values/{{.chart}}/values.yaml"`}}
+      - repoURL: {{`"{{ .variables.common.gitRepo }}"`}}
+        targetRevision: {{`"{{ .variables.common.revision }}"`}}
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.product}}-{{.productType}}'
+        namespace: {{`"{{ .variables.common.project }}-{{.variables.common.environment }}-{{ .variables.common.type }}-{{.product }}-{{.productType }}"`}}
       syncPolicy:
         automated:
           prune: true
@@ -48,4 +50,4 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: '{{.variables.common.project}}-{{.variables.common.environment}}-{{.variables.common.type}}-{{.product}}-{{.productType}}'
+            project: {{`"{{ .variables.common.project }}-{{ .variables.common.environment }}-{{ .variables.common.type }}-{{.product}}-{{.productType }}"`}}
