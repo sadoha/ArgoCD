@@ -33,7 +33,7 @@ spec:
         targetRevision: {{`"{{.chartVersion}}"`}}
         helm:
           valueFiles:
-          - {{`"$values/{{ .variables.common.option }}/environments/{{.variables.common.environment}}/infrastructure/{{.chart}}/values.yaml"`}}
+          - {{`"$values/{{ .variables.common.option }}/environments/{{.variables.common.environment}}/infrastructure/{{ .group }}/{{.chart}}/values.yaml"`}}
       - repoURL: {{`"{{ .variables.common.gitRepo }}"`}}
         targetRevision: {{`"{{ .variables.common.revision }}"`}}
         ref: values
