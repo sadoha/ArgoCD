@@ -42,7 +42,7 @@ spec:
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: {{`"{{ .variables.common.project-{{.variables.common.environment }}-{{ .variables.common.type }}-{{.product }}-{{.productType }}"`}}
+        namespace: {{`"{{ .variables.common.project }}-{{.variables.common.environment }}-{{ .variables.common.type }}-{{.product }}-{{.productType }}"`}}
       syncPolicy:
         automated:
           prune: true
