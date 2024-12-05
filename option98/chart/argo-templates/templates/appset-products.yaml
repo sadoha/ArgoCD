@@ -36,7 +36,7 @@ spec:
             - name: image.tag
               value: {{`"{{ .appVersion }}"`}}
           valueFiles:
-          - $values/{{`"{{ .variables.common.option }}/environments/{{ .variables.common.environment }}/products/values/{{ .product }}/{{ .name }}"`}}/values.yaml
+          - {{`"$values/{{ .variables.common.option }}/environments/{{ .variables.common.environment }}/products/values/{{ .product }}/{{ .name }}/values.yaml"`}}
       - repoURL: {{`"{{ .variables.common.gitRepo }}"`}}
         targetRevision: {{`"{{ .variables.common.revision }}"`}}
         ref: values
