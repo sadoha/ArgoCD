@@ -28,17 +28,17 @@ spec:
     spec:
       project: {{`"{{ .variables.common.project }}"`}}
       sources:
-      - repoURL: {{`"{{ .Values.variables.common.gitRepo }}"`}}
-        targetRevision: {{`"{{ .Values.variables.common.revision }}"`}}
+      - repoURL: {{`"{{ .variables.common.gitRepo }}"`}}
+        targetRevision: {{`"{{ .variables.common.revision }}"`}}
         path: helm/{{`"{{ .chart }}"`}}
         helm:
           parameters:
             - name: image.tag
               value: {{`"{{ .appVersion }}"`}}
           valueFiles:
-          - $values/{{ .Values.variables.common.option }}/environments/{{`"{{ .variables.common.environment }}/products/values/{{ .product }}/{{ .name }}"`}}/values.yaml
-      - repoURL: {{`"{{ .Values.variables.common.gitRepo }}"`}}
-        targetRevision: {{`"{{ .Values.variables.common.revision }}"`}}
+          - $values/{{`"{{ .variables.common.option }}/environments/{{ .variables.common.environment }}/products/values/{{ .product }}/{{ .name }}"`}}/values.yaml
+      - repoURL: {{`"{{ .variables.common.gitRepo }}"`}}
+        targetRevision: {{`"{{ .variables.common.revision }}"`}}
         ref: values
       destination:
         server: https://kubernetes.default.svc
