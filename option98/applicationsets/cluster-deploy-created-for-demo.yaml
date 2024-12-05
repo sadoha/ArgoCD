@@ -16,7 +16,7 @@ spec:
           - path: option98/environments/*/variables
             exclude: true
           - path: option98/environments/200
-            exclude: true 
+            exclude: false
   template:
     metadata:
       namespace: argocd
