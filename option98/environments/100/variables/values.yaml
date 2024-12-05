@@ -31,13 +31,13 @@ variables:
 
   infrastructure:
     - name:         "etcd"
-      product:      "shared"
+      group:      "shared"
       productType:  "infra"
       chart:        "etcd"
       repoUrl:      "registry-1.docker.io/bitnamicharts"
       chartVersion: "10.5.3"
     - name:         "mongodb"
-      product:      "shared"
+      group:      "shared"
       productType:  "infra"
       chart:        "mongodb"
       repoUrl:      "registry-1.docker.io/bitnamicharts"

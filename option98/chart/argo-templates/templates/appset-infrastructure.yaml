@@ -24,9 +24,7 @@ spec:
   template:
     metadata:
       namespace: argocd
-      name: {{`"{{ .variables.common.project }}-{{ .variables.common.environment }}-{{ .variables.common.type }}-{{ .product }}-{{ .productType }}-{{ .name }}"`}}
-      annotations:
-        argocd.argoproj.io/sync-wave: "-2"
+      name: {{`"{{ .variables.common.project }}-{{ .variables.common.environment }}-{{ .variables.common.type }}-{{ .group }}-{{ .productType }}-{{ .name }}"`}}
     spec:
       project: {{`"{{ .variables.common.project }}"`}}
       sources:
@@ -35,13 +33,13 @@ spec:
         targetRevision: {{`"{{.chartVersion}}"`}}
         helm:
           valueFiles:
-          - {{`"$values/{{ .variables.common.option }}/environments/{{.variables.common.environment}}/infrastructure/values/{{.chart}}/values.yaml"`}}
+          - {{`"$values/{{ .variables.common.option }}/environments/{{.variables.common.environment}}/infrastructure/{{.chart}}/values.yaml"`}}
       - repoURL: {{`"{{ .variables.common.gitRepo }}"`}}
         targetRevision: {{`"{{ .variables.common.revision }}"`}}
         ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: {{`"{{ .variables.common.project }}-{{.variables.common.environment }}-{{ .variables.common.type }}-{{.product }}-{{.productType }}"`}}
+        namespace: {{`"{{ .variables.common.project }}-{{.variables.common.environment }}-{{ .variables.common.type }}-{{.group }}-{{.productType }}"`}}
       syncPolicy:
         automated:
           prune: true
@@ -50,4 +48,4 @@ spec:
           - CreateNamespace=true
         managedNamespaceMetadata: 
           labels:
-            project: {{`"{{ .variables.common.project }}-{{ .variables.common.environment }}-{{ .variables.common.type }}-{{.product}}-{{.productType }}"`}}
+            project: {{`"{{ .variables.common.project }}-{{ .variables.common.environment }}-{{ .variables.common.type }}-{{.group}}-{{.productType }}"`}}
