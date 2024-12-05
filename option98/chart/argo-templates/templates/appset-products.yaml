@@ -30,7 +30,7 @@ spec:
       sources:
       - repoURL: {{`"{{ .variables.common.gitRepo }}"`}}
         targetRevision: {{`"{{ .variables.common.revision }}"`}}
-        path: helm/{{`"{{ .chart }}"`}}
+        path: {{`"helm/{{ .chart }}"`}}
         helm:
           parameters:
             - name: image.tag
