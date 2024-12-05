@@ -20,7 +20,7 @@ spec:
             - path: {{ .Values.variables.common.option }}/environments/{{ .Values.variables.common.environment }}/variables/values.yaml
         - list:
             elements: []
-            elementsYaml: {{`"{{ .variables.products | toJson }}"`}}
+            elementsYaml: {{`"{{ .variables.infrastructure | toJson }}"`}}
   template:
     metadata:
       namespace: argocd
