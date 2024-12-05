@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: silo98-100-primary-products
+  name: {{ .Values.variables.common.environment }}-infra
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
-    name: silo98-100-primary-products
+    name: {{ .Values.variables.common.environment }}-infra
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -14,13 +14,13 @@ spec:
     - matrix:
         generators:
         - git:
-            repoURL: https://github.com/sadoha/ArgoCD.git
-            revision: stan-sandbox
+            repoURL: {{ .Values.variables.common.gitRepo }}
+            revision: {{ .Values.variables.common.revision }}
             files:
-            - path: option98/environments/100/variables/values.yaml
+            - path: {{ .Values.variables.common.option }}/environments/{{ .Values.variables.common.environment }}/variables/values.yaml
         - list:
             elements: []
-            elementsYaml: "{{ .variables.products | toJson }}" 
+            elementsYaml: "{{ .variables.infrastructure | toJson }}" 
   template:
     metadata:
       namespace: argocd
@@ -28,17 +28,14 @@ spec:
     spec:
       project: '{{.variables.common.project}}'
       sources:
-      - repoURL: https://github.com/sadoha/ArgoCD.git
-        targetRevision: stan-sandbox
-        path: 'helm/{{.chart}}'
+      - chart: '{{.chart}}'
+        repoURL: '{{.repoUrl}}'
+        targetRevision: '{{.chartVersion}}'
         helm:
-          parameters:
-            - name: image.tag
-              value: '{{.appVersion}}'
           valueFiles:
-          - $values/option98/environments/{{.variables.common.environment}}/products/values/{{.product}}/{{.name}}/values.yaml
-      - repoURL: 'https://github.com/sadoha/ArgoCD.git'
-        targetRevision: stan-sandbox
+          - $values/{{ .Values.variables.common.option }}/environments/{{.variables.common.environment}}/infrastructure/values/{{.chart}}/values.yaml
+      - repoURL: {{ .Values.variables.common.gitRepo }}
+        targetRevision: {{ .Values.variables.common.revision }}
         ref: values
       destination:
         server: https://kubernetes.default.svc

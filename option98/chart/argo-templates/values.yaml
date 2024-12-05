@@ -1,0 +1,12 @@
+# Default values for app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+variables:
+  common:
+    environment:    "000"
+    project:        "SomeProjectName"
+    type:           "CommonType"
+    option:         "option98"
+    revision:       "stan-sandbox"
+    gitRepo:     "https://github.com/sadoha/ArgoCD.git"
+

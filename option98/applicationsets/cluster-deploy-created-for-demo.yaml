@@ -24,7 +24,10 @@ spec:
       sources:
       - repoURL: https://github.com/sadoha/ArgoCD.git
         targetRevision: stan-sandbox
-        path: option98/environments/{{path.basename}}/applicationsets
+        path: option98/chart/argo-templates
+        helm:
+          valueFiles:
+            - option98/environments/100/variables/values.yaml
       destination:
         namespace: argocd
         server: https://kubernetes.default.svc
